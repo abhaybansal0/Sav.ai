@@ -12,7 +12,7 @@ const CheckEmailPage = () => {
         {/* Title & Subtitle */}
         <h2 className="text-3xl font-bold text-gray-900">Verify Your Email</h2>
         <p className="text-gray-600 mt-2">
-          We've sent a verification link to your email. Please check your inbox.
+          We&apos;ve sent a verification link to your email. Please check your inbox.
         </p>
 
         {/* Resend Email Button */}
