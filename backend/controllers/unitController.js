@@ -1,0 +1,120 @@
+import Unit from '../models/unit.js'
+import Subject from '../models/subject.js'
+import Progress from '../models/progress.js'
+import mongoose from 'mongoose';
+
+const getUnits = async (req, res) => {
+    try {
+
+        const { subjectId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(subjectId)) {
+            return res.status(400).json({ message: "Invalid subjectId", success: false });
+        }
+
+        const unitsArray = await Unit.find({
+            subject: subjectId
+        }).sort('position').lean();
+
+
+        // lets add a logic of adding user progress along with the units
+        const userId = req.user._id;
+
+        const progressDoc = await Progress.findOne({
+            user: userId,
+            subject: subjectId
+        }).lean();
+
+        const userProgressArray = progressDoc?.units || [];
+
+        const progressMap = new Map(
+            userProgressArray.map(pu => [pu.unit.toString(), pu.lessonsCompleted])
+        )
+
+        for (const unit of unitsArray) {
+            const unitId = unit._id.toString();
+            const completedLessons = progressMap.get(unitId) || [];
+
+            unit.userCompletedLessonsCount = completedLessons.length;
+            unit.userCompletedLessons = completedLessons;
+        }
+
+
+        res.status(200).json({
+            message: 'Units retrieved successfully',
+            success: true,
+            unitsArray
+        })
+
+
+    } catch (error) {
+        console.log('Error while fetching units: ', error);
+        res.status(500).json({
+            message: 'Server issue, Please try again later',
+            success: false
+        })
+    }
+}
+
+const addUnit = async (req, res) => {
+    try {
+
+        const unit = req.body;
+
+        if (!unit?.name || !unit?.subject || !unit?.position) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing required fields!"
+            })
+        }
+
+        const subjectId = unit.subject;
+        const ownerSubject = await Subject.findOne({
+            _id: subjectId
+        });
+
+        if (!ownerSubject) {
+            return res.status(400).json({
+                message: "The parent subject does not exist",
+                success: false
+            })
+        }
+
+
+        const newUnit = new Unit(unit);
+        await newUnit.save();
+
+        ownerSubject.unitCount += 1;
+        ownerSubject.units.push(newUnit._id.toString());
+
+        const savedSubejct = await ownerSubject.save();
+
+
+        res.status(201).json({
+            message: "Successfully cretead a new Unit",
+            success: true,
+            newUnit
+        })
+
+
+    } catch (error) {
+        console.log('Error in making the Unit:', error);
+
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: 'A Unit with this name already exists'
+            });
+        }
+
+        res.status(500).send({
+            message: 'Server Error, Please try again later',
+            success: false
+        })
+    }
+}
+
+export {
+    getUnits,
+    addUnit
+}
