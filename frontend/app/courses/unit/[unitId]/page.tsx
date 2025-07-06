@@ -82,16 +82,6 @@ const lesson = {
 
 
 
-/* ----------  KaTeX helper (CDN)  ---------- */
-// function renderLatex(latex: string) {q
-//     // @ts-ignore – katex is attached to window by the script tag we’ll add
-//     if (typeof window !== 'undefined' && (window as any).katex) {
-//         // @ts-ignore
-//         return (window as any).katex.renderToString(latex, { throwOnError: false });
-//     }
-//     return latex; // fallback: raw string until script loads
-// }
-
 /* ----------  Component  ---------- */
 export default function LessonDemoPage() {
     const [qIndex, setQIndex] = useState(0);
@@ -204,21 +194,3 @@ export default function LessonDemoPage() {
         </div>
     );
 }
-
-/* ----------  Inject KaTeX CDN once  ---------- */
-//    export const metadata = { title: 'Lesson Demo' };
-
-// export function Head() {
-//     return (
-//         <>
-//             <link
-//                 rel="stylesheet"
-//                 href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-//             />
-//             <script
-//                 defer
-//                 src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"
-//             />
-//         </>
-//     );
-// }

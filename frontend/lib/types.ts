@@ -29,3 +29,23 @@ export type UserProfile = {
     lastStreakDate: Date;
 }
 
+export interface CoursesType {
+    _id: string,
+    name: string,
+    description: string,
+    icon: string,
+    unitCount: number,
+    difficulty: 'Beginner' | 'Intermediate' | 'Advanced',
+    prerequisites: [string],
+    units: [string],
+    createdAt: Date,
+    __v: number,
+    progress: number,
+    isStarted: boolean
+
+    rating?: number
+    students?: number
+    duration?: string,
+    gradientColors?: string
+}
+

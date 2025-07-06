@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import React from 'react'
 import HeaderII from '@/components/HeaderII'
 

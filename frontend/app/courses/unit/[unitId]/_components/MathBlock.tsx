@@ -1,4 +1,3 @@
-// components/MathBlock.tsx
 'use client';
 import React, { useEffect } from 'react';
 import { MathJax } from 'better-react-mathjax';

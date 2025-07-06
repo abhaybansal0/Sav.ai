@@ -1,39 +1,20 @@
 
 import React from 'react';
 import { Code, Users, BookOpen, Clock, Star, ChevronRight, Play } from 'lucide-react';
+import { CoursesType } from '@/lib/types';
+import Link from 'next/link';
 
-interface CourseCardProps {
-    title: string;
-    description: string;
-    level: 'Beginner' | 'Intermediate' | 'Advanced';
-    rating: number;
-    students: number;
-    units: number;
-    duration: string;
-    progress: number;
-    icon?: React.ReactNode;
-    gradientColors?: string;
-    isStarted?: boolean;
-}
+const CourseCard = ({
+    _id, name, icon, description, rating=4, students=10, duration='4 Weeks', unitCount, difficulty, progress, isStarted, gradientColors='from-blue-500 via-purple-500 to-pink-500'
+}: CoursesType) => {
 
-const CourseCard: React.FC<CourseCardProps> = ({
-    title,
-    description,
-    level,
-    rating,
-    students,
-    units,
-    duration,
-    progress,
-    icon,
-    gradientColors = "from-orange-400 via-red-500 to-pink-500",
-    isStarted = false
-}) => {
+
+    const ProgressPer = progress / unitCount * 100;
 
     const getLevelColor = (level: string) => {
         switch (level) {
             case 'Beginner':
-                return 'bg-green-500 text-white';
+                return 'bg-green-400 text-white';
             case 'Intermediate':
                 return 'bg-yellow-500 text-white';
             case 'Advanced':
@@ -56,7 +37,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
 
         if (hasHalfStar) {
             stars.push(
-                <Star key="half" className="w-4 h-4 fill-yellow-400/50 text-yellow-400" />
+                <Star key="half" className="w-4 h-4  text-yellow-400" />
             );
         }
 
@@ -71,7 +52,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
     };
 
     return (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.001] hover:border-blue-500/50 group">
+        <div className="bg-white  dark:bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.001] hover:border-blue-500/50 group">
+
             {/* Header with Gradient Background */}
             <div className={`bg-gradient-to-br ${gradientColors} p-6 relative overflow-hidden lg:p-5 md:p-4`}>
                 {/* Decorative Elements */}
@@ -84,9 +66,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
                         {icon || <Code className="w-6 h-6 text-white lg:w-5 lg:h-5 md:w-4 md:h-4" />}
                     </div>
 
+
                     {/* Level Badge */}
-                    <div className={`${getLevelColor(level)} px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm lg:px-2.5 md:px-2 md:text-xs`}>
-                        {level}
+                    <div className={`${getLevelColor(difficulty)} px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm lg:px-2.5 md:px-2 md:text-xs`}>
+                        {difficulty}
                     </div>
                 </div>
             </div>
@@ -95,8 +78,8 @@ const CourseCard: React.FC<CourseCardProps> = ({
             <div className="p-6 lg:p-5 md:p-4">
                 {/* Title and Description */}
                 <div className="mb-4 lg:mb-3 md:mb-2">
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors lg:text-lg md:text-base lg:mb-1.5 md:mb-1">
-                        {title}
+                    <h3 className="text-xl font-bold text-gray-700 dark:text-white mb-2 group-hover:text-blue-600 transition-colors lg:text-lg md:text-base lg:mb-1.5 md:mb-1">
+                        {name}
                     </h3>
                     <p className="text-gray-400 text-sm leading-normal lg:text-xs md:text-xs ">
                         {description}
@@ -108,7 +91,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                     <div className="flex space-x-1 lg:space-x-0.5 md:space-x-0.5">
                         {renderStars(rating)}
                     </div>
-                    <span className="text-white font-medium text-sm lg:text-xs md:text-xs">{rating}</span>
+                    <span className="text-gray-500 dark:text-white font-medium text-sm lg:text-xs md:text-xs">{rating}</span>
                     <span className="text-gray-500 text-xs lg:text-xs md:text-xs">({students.toLocaleString()} students)</span>
                 </div>
 
@@ -116,7 +99,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                 <div className="grid grid-cols-2 gap-4 mb-6 lg:gap-3 lg:mb-4 md:gap-2 md:mb-3">
                     <div className="flex items-center justify-start space-x-2 text-gray-400 lg:space-x-1.5 md:space-x-1">
                         <BookOpen className="w-4 h-4 lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
-                        <span className="text-sm lg:text-xs md:text-xs">{units} units</span>
+                        <span className="text-sm  lg:text-xs md:text-xs">{unitCount} units</span>
                     </div>
                     <div className="flex items-center justify-end space-x-2 text-gray-400 lg:space-x-1.5 md:space-x-1">
                         <Clock className="w-4 h-4 lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
@@ -129,31 +112,33 @@ const CourseCard: React.FC<CourseCardProps> = ({
                     <div className="mb-6 lg:mb-4 md:mb-3">
                         <div className="flex justify-between items-center mb-2 lg:mb-1.5 md:mb-1">
                             <span className="text-sm text-gray-400 lg:text-xs md:text-xs">Progress</span>
-                            <span className="text-sm font-semibold text-white lg:text-xs md:text-xs">{progress}%</span>
+                            <span className="text-sm font-semibold text-gray-600 dark:text-white lg:text-xs md:text-xs">{ProgressPer}%</span>
                         </div>
                         <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden lg:h-1.5 md:h-1.5">
                             <div
                                 className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500 ease-out lg:h-1.5 md:h-1.5"
-                                style={{ width: `${progress}%` }}
+                                style={{ width: `${ProgressPer}%` }}
                             ></div>
                         </div>
                     </div>
                 )}
 
                 {/* Action Button */}
-                <button className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-500 hover:to-blue-800 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 flex text-center items-center justify-center space-x-2 group/btn shadow-sm hover:shadow-blue-500/15 lg:py-2.5 lg:px-4 md:py-2 md:px-3 lg:text-sm md:text-sm lg:space-x-1.5 md:space-x-1">
-                    {isStarted ? (
-                        <>
-                            <span>Continue Learning</span>
-                            <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
-                        </>
-                    ) : (
-                        <>
-                            <Play className="w-4 h-4 lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
-                            <span>Start Course</span>
-                        </>
-                    )}
-                </button>
+                <Link href={`/courses/${_id}`}>
+                    <button className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-500 hover:to-blue-800 text-white py-3 px-6 rounded-xl font-semibold transition-all duration-200 flex text-center items-center justify-center space-x-2 group/btn shadow-sm hover:shadow-blue-500/15 lg:py-2.5 lg:px-4 md:py-2 md:px-3 lg:text-sm md:text-sm lg:space-x-1.5 md:space-x-1">
+                        {isStarted ? (
+                            <>
+                                <span>Continue Learning</span>
+                                <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
+                            </>
+                        ) : (
+                            <>
+                                <Play className="w-4 h-4 lg:w-3.5 lg:h-3.5 md:w-3 md:h-3" />
+                                <span>Start Course</span>
+                            </>
+                        )}
+                    </button>
+                </Link>
             </div>
         </div>
     );

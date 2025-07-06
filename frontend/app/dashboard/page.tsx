@@ -1,4 +1,3 @@
-"use server"
 import React from 'react'
 import HeroSection from './_components/HeroSection'
 import Courses from './_components/Courses'
@@ -8,11 +7,15 @@ import { ReduxProvider } from '@/lib/redux/provider'
 import ClientSync from '@/components/ClientSync'
 import { getUserWithAuth } from '@/lib/auth'
 import type { UserProfile } from '@/lib/types'
+import { getDashboardCourses } from '@/lib/content'
 
 
 const DashboardPage = async () => {
+  
+  // Fetching both the userData and CourseData simulataniously
+  const [user, courses] = await Promise.all([getUserWithAuth(), getDashboardCourses()]); 
+  const { CoursesArray } = courses;
 
-  const user = await getUserWithAuth();
   const userData = user.profile as UserProfile;
 
   const { username, streak, xp, coursesNo } = userData;
@@ -39,7 +42,7 @@ const DashboardPage = async () => {
       <ReduxProvider>
         <ClientSync />
       </ReduxProvider>
-      
+
       {/* Hero section */}
       <HeroSection userData={{ username, streak, xp, coursesNo, ProgressPer }} />
 
@@ -49,7 +52,7 @@ const DashboardPage = async () => {
       '>
 
         {/* User Courses */}
-        <Courses />
+        <Courses courses={CoursesArray} />
 
         {/* Rescent activity and badges / Achivements */}
         <div className='flex-col w-2/6 justify-start items-center gap-4 md:w-full '>

@@ -22,7 +22,7 @@ const ClientSync = ( ) => {
             ?.split('=')[1];
 
 
-        let streakData = { streak: 0, streakRunning: false };
+        let streakData = { streak: 0, lastStreakDate: false };
         if (raw) {
             try {
                 const decoded = decodeURIComponent(raw);
@@ -33,7 +33,7 @@ const ClientSync = ( ) => {
         }
 
         dispatch(setStreak(streakData.streak))
-        dispatch(streakIsActive(streakData.streakRunning));
+        dispatch(streakIsActive(streakData.lastStreakDate));
         dispatch(setUserTheme(theme));
 
     }, [dispatch])

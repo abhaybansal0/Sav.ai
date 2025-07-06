@@ -213,6 +213,7 @@ const loginUser = async (req, res) => {
             streak: user.streak,
             lastStreakDate: user.lastStreakDate
         }
+        
         res.cookie("user-streak", JSON.stringify(streakObj), {
             httpOnly: false,
             secure: process.env.NODE_ENV === 'production',

@@ -24,7 +24,7 @@ const userSubjectProgressSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Lesson'
         }],
-        percentCompleted: {
+        xpGained: {
             type: Number,
             default: 0
         },

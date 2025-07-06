@@ -2,9 +2,16 @@ import React from 'react'
 import { ReduxProvider } from '@/lib/redux/provider'
 import ClientSync from '../../components/ClientSync'
 import HeroSection from './_components/HeroSection'
-import Courses from './_components/Courses'
+import CoursesSection from './_components/CoursesSection'
+import { getCourses } from '@/lib/content'
+import type { CoursesType } from '@/lib/types'
 
-const coursesPage = () => {
+const coursesPage = async () => {
+
+  const res  = await getCourses();
+  const Subjects = res.Subjects as CoursesType[];
+
+
   return (
     <div className='w-full'>
 
@@ -16,7 +23,10 @@ const coursesPage = () => {
       <HeroSection />
 
       {/* Search Bar and Sorting */}
-      <Courses />
+
+
+      {/* Courses Section */}
+      <CoursesSection courses={Subjects}/>
 
 
 

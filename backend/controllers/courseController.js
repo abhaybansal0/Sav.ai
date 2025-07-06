@@ -1,18 +1,59 @@
 import Subject from '../models/subject.js'
 import Progress from '../models/progress.js';
 
+const bl = {
+    // title: "Python for Data Science",
+    // description: "Comprehensive introduction to Python programming for data analysis and visualization",
+    // level: "Intermediate" as const,
+    // units: 20,
+    // icon: <BookOpen className="w-6 h-6 text-white" />,
+    // rating: 4.7,
+    // students: 12300,
+    // duration: "8 weeks",
+    // gradientColors: "from-green-400 via-blue-500 to-purple-600",
+
+    progress: 42,
+    isStarted: true
+}
+
 const getSubjects = async (req, res) => {
 
     try {
 
-        const Subjects = await Subject.find();
+        const Subjects = await Subject.find().sort('__v').lean();
 
         const userId = req.user._id;
 
-        const userProgress = await Progress.findOne({
+        const userProgress = await Progress.find({
             user: userId
-        })
-        console.log(userProgress);
+        }).lean();
+
+        const ProgressMap = new Map();
+
+        for (const obj of userProgress) {
+            // let xpGained = 0;
+            let lessonsCompleted = 0;
+            for (const unit of obj.units) {
+                lessonsCompleted += unit.lessonsCompleted.length;
+                // xpGained += unit.xpGained;
+            }
+            ProgressMap.set(obj.subject.toString(), lessonsCompleted);
+        }
+
+        for(const sub of Subjects) {
+            const subId = sub._id.toString();
+            const completedLessons = ProgressMap.get(subId) || 0;
+            const running = completedLessons===0 ? false : true;
+
+
+            sub.progress = completedLessons;
+            sub.isStarted = running;
+
+            delete sub.updatedAt;
+            delete sub.__v;
+
+        }
+
 
         res.status(200).send({
             message: 'Subjects successfully retrived',

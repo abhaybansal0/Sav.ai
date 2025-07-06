@@ -23,10 +23,33 @@ const subjectSchema = new mongoose.Schema({
         default: 0
     },
 
+    totalLessons: {
+        type: Number,
+        default: 0
+    },
+
     difficulty: {
         type: String,
-        enum: ['beginner', 'intermediate', 'advanced'],
+        enum: ['Beginner', 'Intermediate', 'Advanced'],
         default: 'beginner'
+    },
+
+    rating: {
+        type: Number,
+        default: 0
+    },
+    students: {         // Number of students subscribed
+        type: Number,
+        default: 0
+    },
+    duration: {      // Aprox Completion time 
+        type: String,
+        default: "4 Weeks"
+    },
+    
+    gradientColors: {
+        type: String,
+        default: "from-blue-500 via-purple-500 to-pink-500"
     },
 
     prerequisites: [{

@@ -20,5 +20,21 @@ export async function getDashboardCourses() {
 
 
     return res.data;
+}
 
+export async function getCourses() {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('Authorization')?.value;
+
+    const res = await axios.get(`${BASE_BACKEND_URL}/api/courses`, 
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        }
+    )
+
+    if(!res) return null;
+
+    return res.data;
 }

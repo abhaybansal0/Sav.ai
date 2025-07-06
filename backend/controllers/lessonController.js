@@ -1,5 +1,6 @@
 import Lesson from '../models/lesson.js'
 import Unit from '../models/unit.js'
+import Subject from '../models/subject.js';
 import mongoose from 'mongoose';
 
 
@@ -40,19 +41,21 @@ const addLesson = async (req, res) => {
         const lesson = req.body;
         const creator = req.user.username;
 
-        if (!lesson?.unit) {
+        if (!lesson?.unit || !lesson?.subject) {
             return res.status(400).json({
                 success: false,
                 message: "Missing required fields!"
             })
         }
 
+        const ownerSubjectId = lesson.sub;
         const ownerUnitId = lesson.unit;
 
         lesson.creator = creator;
         const newLesson = new Lesson(lesson);
         const savedLesson = await newLesson.save();
 
+        // Unit addition
         const ownerUnit = await Unit.findOne({
             _id: ownerUnitId
         });
@@ -69,6 +72,20 @@ const addLesson = async (req, res) => {
 
         await ownerUnit.save();
 
+        // Subject Addition
+        const ownerSubject = await Subject.findOne({
+            _id: ownerSubjectId
+        })
+
+        if (!ownerSubject) {
+            return res.status(400).json({
+                message: "The parent Unit does not exist",
+                success: false
+            })
+        }
+
+        ownerSubject.totalLessons += 1;
+        await ownerSubject.save();
 
         res.status(201).json({
             success: true,
