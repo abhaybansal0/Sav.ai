@@ -44,6 +44,13 @@ const lessonSchema = new mongoose.Schema({
         required: true
     },
 
+    theme: {
+      type: String,
+      enum: ['Amber', 'Blue', 'Green', 'Red', 'Purple', 'Orange', 'Yellow', 'Rose'],
+      required: true,
+      default: 'Blue'
+    },
+
 
     // --- Core Content ---
     formulae: [{

@@ -26,7 +26,16 @@ const ClientSync = ( ) => {
         if (raw) {
             try {
                 const decoded = decodeURIComponent(raw);
-                streakData = JSON.parse(decoded);
+                const cookieDate = JSON.parse(decoded);
+
+                const lastDate = cookieDate.toString().slice(0, 10);
+                const today = new Date().toString().slice(0, 10);
+
+                streakData = {
+                    streak: cookieDate.streak,
+                    lastStreakDate: lastDate === today ? true : false
+                }
+
             } catch (e) {
                 console.error('Failed to parse user-streak cookie', e);
             }

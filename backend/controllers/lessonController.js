@@ -2,6 +2,7 @@ import Lesson from '../models/lesson.js'
 import Unit from '../models/unit.js'
 import Subject from '../models/subject.js';
 import mongoose from 'mongoose';
+import Progress from '../models/progress.js';
 
 
 const getLessons = async (req, res) => {
@@ -17,11 +18,46 @@ const getLessons = async (req, res) => {
             unit: unitId
         }).sort('class').lean();
 
+        const populatedUnit = await Unit.findById(unitId)
+            .populate({
+                path: 'lessons',
+                model: 'Lesson',
+            })
+            .lean();
+
+
+        // Logic for the user progress adition
+
+        const userId = req.user._id;
+
+        const progressDoc = await Progress.findOne({
+            user: userId,
+            units: {
+                $elemMatch: {unit: unitId}
+            }
+        })
+
+        const progressObj = progressDoc?.units.find(u => u.unit.toString() === unitId) || {};
+
+        const progressArray = progressObj?.lessonsCompleted || [];
+
+        const progressSet = new Set(
+            progressArray.map(lessonId => lessonId.toString())
+        )
+
+        let userCompletedLessonsCount = 0;
+        for(const lesson of populatedUnit.lessons) {
+            const completed = progressSet.has(lesson._id.toString()) ? true : false;
+            lesson.completed = completed;
+            if(completed) userCompletedLessonsCount++;
+        }
+        
+        populatedUnit.userCompletedLessonsCount = userCompletedLessonsCount;
 
         res.status(200).json({
             message: 'Lessons retrieved successfully',
             success: true,
-            lessons
+            unit: populatedUnit
         })
 
     } catch (error) {

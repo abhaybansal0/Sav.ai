@@ -10,7 +10,7 @@ type CourseProps = {
 
 const CoursesSection = ({ courses }: CourseProps) => {
     return (
-        <div className='w-full light-teal dark:bg-background text-black dark:text-white tracking-normal px-12 md:px-4 pb-4 pt-6'>
+        <div className='w-full tracking-normal px-12 md:px-4 pb-4 pt-6'>
 
             <div className='flex mb-8'>
 

@@ -37,6 +37,7 @@ const submitLessonProgress = async (req, res) => {
             })
         }
 
+
         let progressDoc = await Progress.findOne({
             user: user._id,
             subject: subjectId
@@ -72,6 +73,9 @@ const submitLessonProgress = async (req, res) => {
                 averageScore: 0,
                 lastAccessed: new Date()
             });
+            
+            earnedXP = submitForm.correctCount * 15;
+            user.xp += earnedXP;
             // grab the new subdoc reference for later
             uProg = progressDoc.units[progressDoc.units.length - 1];
         }

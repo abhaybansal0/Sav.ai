@@ -1,6 +1,6 @@
 'use client'
 import { useAppSelector } from '@/lib/redux/hooks';
-import { Flame } from 'lucide-react';
+import { Rocket } from 'lucide-react';
 
 const StreakButton = () => {
 
@@ -13,10 +13,10 @@ const StreakButton = () => {
             title="Click to show Streak Week"
         >
             <span className={` ${streakIsActive ? 'text-orange-400' : 'text-gray-400'} text-lg `}>
-                <Flame size={16} className={`${streakIsActive ? 'fill-orange-400' : ''}`} />
+                <Rocket size={16} className={`${streakIsActive ? 'fill-orange-400' : ''}`} />
                 {/* <User  /> */}
             </span>
-            <span className={` ${streakIsActive ? 'text-orange-400' : 'text-gray-400'} font-medium`}>
+            <span className={` ${streakIsActive ? 'text-orange-400' : 'text-gray-400'} font-medium text-lg`}>
                 {streak}
             </span>
         </div>

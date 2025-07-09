@@ -34,7 +34,7 @@ const HeroSection = ({
 
 
     return (
-        <div className='light-teal dark:bg-background text-black dark:text-white w-full pt-32 tracking-normal px-12 md:px-4 pb-4 '>
+        <div className='w-full pt-32 tracking-normal px-12 md:px-4 pb-4 '>
 
 
 

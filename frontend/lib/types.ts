@@ -37,7 +37,7 @@ export interface CoursesType {
     unitCount: number,
     difficulty: 'Beginner' | 'Intermediate' | 'Advanced',
     prerequisites: [string],
-    units: [string],
+    units: [UnitsType],
     createdAt: Date,
     __v: number,
     progress: number,
@@ -47,5 +47,44 @@ export interface CoursesType {
     students?: number
     duration?: string,
     gradientColors?: string
+
+    totalLessons: number
+    totalCompletedLessons: number
 }
 
+export interface UnitsType {
+    _id: string;
+    subject: string;
+    name: string;
+    desciption: string;
+    lessonCount: number,
+    lessons: [LessonType],
+    unlockRequirements: [],
+    position: number,
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number,
+    userCompletedLessonsCount: number,
+    userCompletedLessons: [],
+    theme: 'Yellow' | 'Brown' | 'Blue' | 'Green' | 'Orange' | 'Red' | 'Cyan' | 'Teal' | 'Pink' | 'Purple' | 'Gray'
+}
+
+export interface LessonType {
+    _id: string,
+    class: number,
+    chapter: string,
+    concept: string,
+    mentor: string,
+    unit: string,
+    formulae: [],
+    explanation:  string,
+    creator: string,
+    questions: [],
+    revisionCards: [],
+    prereqs: [],
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number,
+    completed: boolean,
+    theme: 'Amber' | 'Blue' | 'Green' | 'Red' | 'Purple' | 'Orange' | 'Yellow' | 'Rose'
+}

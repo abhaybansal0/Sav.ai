@@ -37,7 +37,7 @@ const SignupPage = () => {
     try {
       e.preventDefault();
 
-      const response = await axios.post("/api/signup", inputData)
+      const response = await axios.post("/api/auth/register", inputData)
 
       toast.success('Account Successfully Created!')
       setTimeout(() => {
@@ -48,17 +48,26 @@ const SignupPage = () => {
     } catch (error: any) {
       
 
-      if (error.response.data.message === 'User Already Exists!') {
-        toast.error("User Already Exists")
+      if (error.response.data.message === 'Username, email, and password are required') {
+        toast.error("All fields are required!")
       }
 
-      else if (error.response.data.message === 'Username Not Available') {
-        toast("Username Not Available!")
+      else if (error.response.data.message === 'Password must be at least 8 characters long') {
+        toast("Password must be at least 8 characters long")
+      }
+      else if (error.response.data.message === 'Username must be between 3 and 30 characters') {
+        toast("Username must be between 3 and 30 characters")
+      }
+      else if (error.response.data.message === 'An account with this email already exists') {
+        toast("User already exists!")
+      }
+      else if (error.response.data.message === 'Username is not available') {
+        toast("Username is not available")
       }
       else {
-
-        console.log(error);
+        toast.error('Error during signup, Please try again later')
       }
+
     }
     setButtonDisabled(false);
     setLoading(false);
@@ -169,8 +178,8 @@ const SignupPage = () => {
         {/* Sign-in Redirect */}
         <p className="text-center text-gray-700 mt-4">
           Already have an account?{' '}
-          <Link href="/signin" className="text-blue-600 font-semibold hover:underline">
-            Sign in
+          <Link href="/login" className="text-blue-600 font-semibold hover:underline">
+            Login
           </Link>
         </p>
       </div>

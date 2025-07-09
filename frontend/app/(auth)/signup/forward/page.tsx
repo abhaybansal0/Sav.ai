@@ -83,8 +83,8 @@ const CheckEmailPage: React.FC = () => {
         {/* Sign-in Redirect */}
         <p className="text-gray-700 mt-4">
           Already verified?{' '}
-          <Link href="/signin" className="text-blue-600 font-semibold hover:underline">
-            Sign in
+          <Link href="/login" className="text-blue-600 font-semibold hover:underline">
+            Login
           </Link>
         </p>
       </div>

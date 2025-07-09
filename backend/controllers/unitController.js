@@ -12,9 +12,14 @@ const getUnits = async (req, res) => {
             return res.status(400).json({ message: "Invalid subjectId", success: false });
         }
 
-        const unitsArray = await Unit.find({
-            subject: subjectId
-        }).sort('position').lean();
+        
+        const populatedSub = await Subject.findById(subjectId)
+            .populate({
+                path: 'units',
+                model: 'Unit',
+                options: { sort: { position: 1 } }
+            })
+            .lean();
 
 
         // lets add a logic of adding user progress along with the units
@@ -31,19 +36,26 @@ const getUnits = async (req, res) => {
             userProgressArray.map(pu => [pu.unit.toString(), pu.lessonsCompleted])
         )
 
-        for (const unit of unitsArray) {
+        let totalLessons = 0;
+        let totalCompletedLessons = 0;
+        for (const unit of populatedSub.units) {
             const unitId = unit._id.toString();
             const completedLessons = progressMap.get(unitId) || [];
 
+            totalLessons += unit.lessonCount;
+            totalCompletedLessons += completedLessons.length;
             unit.userCompletedLessonsCount = completedLessons.length;
             unit.userCompletedLessons = completedLessons;
         }
+
+        populatedSub.totalCompletedLessons = totalCompletedLessons;
+        populatedSub.totalLessons = totalLessons;
 
 
         res.status(200).json({
             message: 'Units retrieved successfully',
             success: true,
-            unitsArray
+            populatedSub
         })
 
 

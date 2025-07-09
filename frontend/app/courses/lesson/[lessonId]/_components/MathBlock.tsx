@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { MathJax } from 'better-react-mathjax';
 
 export default function MathBlock({ latex }: { latex: string }) {

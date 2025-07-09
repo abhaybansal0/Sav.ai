@@ -15,7 +15,7 @@ const subjectSchema = new mongoose.Schema({
 
     icon: {
         type: String,
-        default: "" // default Icon URL
+        default: "BookOpen" // default Icon URL
     },
 
     unitCount: {
@@ -31,7 +31,7 @@ const subjectSchema = new mongoose.Schema({
     difficulty: {
         type: String,
         enum: ['Beginner', 'Intermediate', 'Advanced'],
-        default: 'beginner'
+        default: 'Beginner'
     },
 
     rating: {

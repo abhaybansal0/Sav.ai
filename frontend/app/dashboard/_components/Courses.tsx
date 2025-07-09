@@ -39,7 +39,7 @@ const Courses = async ({ courses }: PropsType) => {
           const title = sub.name.toString();
           const { NoOfUnitsDone, unitCount, icon, difficulty } = sub;
           const subId = sub._id;
-          const progress = (NoOfUnitsDone / unitCount) * 100;
+          const progress = (NoOfUnitsDone / unitCount) * 100 || 0;
           const isStarted = progress !== 0;
 
 

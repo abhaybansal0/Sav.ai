@@ -69,7 +69,7 @@ const userSchema = new mongoose.Schema({
 
     lastStreakDate: {
         type: Date,
-        default: null
+        default: new Date(0)
     },
 
     coursesNo: {

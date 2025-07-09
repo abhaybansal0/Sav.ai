@@ -1,0 +1,243 @@
+
+/* Galaxy Stuff */
+/* GalaxyRing.module.css */
+.galaxy {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+
+    transform: scale(1.5);
+  transform-origin: center;
+}
+
+
+
+.galaxyRing {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: #4a90e2 transparent #6ba3f5 transparent;
+  opacity: 0.8;
+}
+
+.ring1 {
+  width: 50px;
+  height: 50px;
+  top: 45px;
+  left: 45px;
+  animation: rotate 35s linear infinite;
+  border-width: 2px;
+  border-color: #4a90e2 transparent #4a90e2 transparent;
+}
+
+
+.ring2 {
+  width: 80px;
+  height: 80px;
+  top: 30px;
+  left: 30px;
+  animation: rotate 50s linear infinite reverse;
+  border-width: 3px;
+  border-color: #6ba3f5 transparent #6ba3f5 transparent;
+}
+
+.ring3 {
+  width: 110px;
+  height: 110px;
+  top: 15px;
+  left: 15px;
+  animation: rotate 80s linear infinite;
+  border-width: 2px;
+  border-color: #8bb8ff transparent #8bb8ff transparent;
+}
+
+
+.ring4 {
+  width: 140px;
+  height: 140px;
+  top: 0;
+  left: 0;
+  animation: rotate 100s linear infinite reverse;
+  border-width: 1px;
+  border-color: #000 transparent #000 transparent;
+  opacity: 0.5;
+}
+
+.dark .ring4 {
+  border-color: #b3d1ff transparent #b3d1ff transparent;
+}
+
+.galaxyCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.galaxyCenter::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
+
+
+
+
+.center-Orange {
+  background: radial-gradient(circle, #ffd700 0%, #ff6b35 50%, #ff4757 100%);
+  box-shadow:
+    0 0 20px #ffcf70,
+    0 0 40px rgba(255, 207, 112, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Orange::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Red {
+  background: radial-gradient(circle, #ff0015 0%, #ffc371 50%, #ff9a9e 100%);
+  box-shadow:
+    0 0 20px #e55d5d,
+    0 0 40px rgba(229, 93, 93, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Red::before {
+  background: radial-gradient(circle at 30% 30%, rgb(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Blue {
+  background: radial-gradient(circle, #7fbfff 0%, #4f9fee 50%, #2f7fcc 100%);
+  box-shadow:
+    0 0 20px #7fbfff,
+    0 0 40px rgba(127, 191, 255, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Blue::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Green {
+  background: radial-gradient(circle, #8fcf8f 0%, #6fb96f 50%, #4f944f 100%);
+  box-shadow:
+    0 0 20px #8fcf8f,
+    0 0 40px rgba(143, 207, 143, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Green::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Purple {
+  background: radial-gradient(circle, #b085df 0%, #9461c8 50%, #722da8 100%);
+  box-shadow:
+    0 0 20px #b085df,
+    0 0 40px rgba(176, 133, 223, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Purple::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Pink {
+  background: radial-gradient(circle, #ffb0c0 0%, #e890a2 50%, #c86982 100%);
+  box-shadow:
+    0 0 20px #ffb0c0,
+    0 0 40px rgba(255, 176, 192, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Pink::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Teal {
+  background: radial-gradient(circle, #8fd3d3 0%, #5fb0b0 50%, #2f8d8d 100%);
+  box-shadow:
+    0 0 20px #8fd3d3,
+    0 0 40px rgba(143, 211, 211, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Teal::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Yellow {
+  background: radial-gradient(circle, #fceabb 0%, #f8b500 50%, #ffdd00 100%);
+  box-shadow:
+    0 0 20px #fcef9f,
+    0 0 40px rgba(252, 239, 159, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Yellow::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+
+
+.center-Cyan {
+  background: radial-gradient(circle, #a1e7ff 0%, #6dd2ff 50%, #3bbcff 100%);
+  box-shadow:
+    0 0 20px #a1e7ff,
+    0 0 40px rgba(161, 231, 255, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Cyan::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+.center-Gray {
+  background: radial-gradient(circle, #c0c4c8 0%, #90969c 50%, #606971 100%);
+  box-shadow:
+    0 0 20px #c0c4c8,
+    0 0 40px rgba(192, 196, 200, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Gray::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+.center-Brown {
+  background: radial-gradient(circle, #b89272 0%, #8f6a4e 50%, #6d5138 100%);
+  box-shadow:
+    0 0 20px #b89272,
+    0 0 40px rgba(184, 146, 114, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.center-Brown::before {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent 50%);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+/* Animation on pulse */
+
+@keyframes pulse {
+    50% {
+        opacity: .75;
+    }
+}
+.animate-pulse-slow {
+    animation: pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-slow:hover {
+  animation: none;
+}

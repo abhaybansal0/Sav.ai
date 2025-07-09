@@ -11,9 +11,9 @@ import { getDashboardCourses } from '@/lib/content'
 
 
 const DashboardPage = async () => {
-  
+
   // Fetching both the userData and CourseData simulataniously
-  const [user, courses] = await Promise.all([getUserWithAuth(), getDashboardCourses()]); 
+  const [user, courses] = await Promise.all([getUserWithAuth(), getDashboardCourses()]);
   const { CoursesArray } = courses;
 
   const userData = user.profile as UserProfile;
@@ -30,14 +30,17 @@ const DashboardPage = async () => {
   const { lastStreakDate } = userData;
   const todayKey = new Date();
   const today = todayKey.toISOString().slice(0, 10);
-  const lastDate = lastStreakDate.toString().slice(0, 10);
+  const lastDate = lastStreakDate?.toString().slice(0, 10);
 
   if (lastDate !== today) {
     ProgressPer = 0;
   }
 
   return (
-    <div className=' w-full'>
+    <div className='w-full 
+      bg-gradient-to-br from-white via-[#e6f2fa] to-[#d4e5f0] text-gray-900
+      dark:bg-gradient-to-br dark:from-black dark:via-[#112236] dark:to-[#0b0c10] dark:text-white
+    '>
 
       <ReduxProvider>
         <ClientSync />
@@ -47,7 +50,7 @@ const DashboardPage = async () => {
       <HeroSection userData={{ username, streak, xp, coursesNo, ProgressPer }} />
 
 
-      <div className='w-full over light-teal dark:bg-background text-black dark:text-white  px-12 flex pt-4 items-start gap-4 md:flex-1 
+      <div className='w-full px-12 flex pt-4 items-start gap-4 md:flex-1 
         pb-8 md:flex-col md:px-4
       '>
 

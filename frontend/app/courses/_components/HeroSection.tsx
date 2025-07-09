@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const HeroSection = () => {
     return (
-        <div className='w-full h-52 light-teal dark:bg-background text-black dark:text-white pt-24 tracking-normal px-12 md:px-4 pb-4'>
+        <div className='w-full pt-24 tracking-normal px-12 md:px-4 pb-4'>
                 <div className='flex gap-2 items-center justify-start text-sm font-semibold'>
                     <Link href={'/dashboard'}>
                         <span className='text-gray-500 dark:text-gray-300'>

@@ -52,7 +52,7 @@ const CourseCard = ({
     };
 
     return (
-        <div className="bg-white  dark:bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.001] hover:border-blue-500/50 group">
+        <div className="bg-white/5  dark:bg-gray-900/5 backdrop-blur-sm rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.001] hover:border-blue-500/50 group">
 
             {/* Header with Gradient Background */}
             <div className={`bg-gradient-to-br ${gradientColors} p-6 relative overflow-hidden lg:p-5 md:p-4`}>

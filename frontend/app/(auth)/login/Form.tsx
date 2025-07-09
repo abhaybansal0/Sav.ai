@@ -40,19 +40,15 @@ const Form = () => {
 
         } catch (error: any) {
 
-            if (error.response.data.message === 'Insufficient Credentials!' ||
-                error.response.data.message === "Incorrect Credentials!"
+            if (error.response.data.message === 'Invalid credentials!' 
             ) {
-                toast.error('Please Check your credentials!')
+                toast.error('Please check your credentials!')
             }
-            else if (error.response.data.message === 'No Such User Found!') {
-                toast.error('No User Found!')
-            }
-            else if (error.response.data.message === 'Server Crashed!') {
-                toast.error('Server Crashed!')
+            else {
+                toast.error('Empty Fields!')
             }
 
-            else throw error
+
         }
     };
 
@@ -124,7 +120,7 @@ const Form = () => {
                     disabled={ButtonDisabled}
                     className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105"
                 >
-                    Sign In
+                     Continue
                 </button>
             </div>
         </form>

@@ -120,12 +120,33 @@ const registerUser = async (req, res) => {
         newUser.tokens.push(token);
         await newUser.save();
 
-        res.cookie("token", token, {
+        res.cookie("Authorization", token, {
             httpOnly: true,
             sameSite: "Strict",
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             maxAge: 10 * 24 * 60 * 60 * 1000
         });
+
+        const streakObj = {
+            streak: 0,
+            lastStreakDate: new Date(0)
+        }
+
+        res.cookie("user-streak", JSON.stringify(streakObj), {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days in milliseconds
+        })
+
+        res.cookie("user-theme", 'light', {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 10 * 24 * 60 * 60 * 1000, // 10 days in milliseconds
+        })
+
+
 
         return res.status(201).json({
             success: true,
@@ -213,7 +234,7 @@ const loginUser = async (req, res) => {
             streak: user.streak,
             lastStreakDate: user.lastStreakDate
         }
-        
+
         res.cookie("user-streak", JSON.stringify(streakObj), {
             httpOnly: false,
             secure: process.env.NODE_ENV === 'production',

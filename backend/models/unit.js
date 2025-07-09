@@ -37,6 +37,12 @@ const unitSchema = new mongoose.Schema({
     position: {
         type: Number,
         required: true
+    },
+
+    theme: {
+        type: String,
+        enum: ['Yellow', 'Brown', 'Blue', 'Green', 'Orange', 'Red', 'Cyan', 'Teal', 'Pink', 'Purple', 'Gray'],
+        default: 'Yellow'
     }
 
 }, {
