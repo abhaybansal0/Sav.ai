@@ -13,14 +13,12 @@ const SignupPage = () => {
 
     const Router = useRouter();
 
+    const [ButtonDisabled, setButtonDisabled] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [inputData, setInputData] = useState({
         password: '',
         repassword: ''
     })
-
-    const [ButtonDisabled, setButtonDisabled] = useState(false)
-
-    const [loading, setLoading] = useState(false)
 
 
 
@@ -38,38 +36,40 @@ const SignupPage = () => {
 
     const ChangePass = async (e: React.FormEvent) => {
         e.preventDefault();
-
         try {
+            const SearchParams = new URLSearchParams(window.location.search)
+            const verifyToken = SearchParams.get("token");
 
             if (inputData.password.trim() === '' || inputData.repassword.trim() === '' ||
                 inputData.password !== inputData.repassword) {
                 return toast.error('Passwords Dont Match!')
             }
 
-            const response = await axios.post('/api/changepass', {
-                id: '',
-                password: inputData.password
+            const response = await axios.post('/api/auth/changepass', {
+                token: verifyToken,
+                newPassword: inputData.password
             })
 
-            if (response.data.message === 'Logged in Successfully!') {
-                toast.success('Signed In Successfully!');
-                return Router.push('/dashboard')
+            if (response.data.success) {
+                toast.success('Password Changed and Signed In!');
+                Router.push('/dashboard')
             }
 
         } catch (error: any) {
             console.log(error)
 
-            if (error.response.data.message === 'Missing Credentials!') {
-                toast.error('insufficient Credentials!')
+            if (error.response.data.message === 'Password must be at least 6 characters long!') {
+                toast('Password must be longer than 6 characters')
             }
-            else if (error.response.data.message === 'No Such User found!') {
-                toast.error('User Does Not Exists!')
+            else if (error.response.data.message === 'Invalid or expired password reset token!') {
+                toast.error('Token Expired!')
             }
-            else if (error.response.data.message === '') {
-                toast.error('Server Crashed!')
+            else if (error.response.data.message === 'Token and new password are required!') {
+                toast.error('Missing Fields!')
             }
-
-            toast.error(error.response.data.message);
+            else {
+                toast.error('Server Issue, Please try again later');
+            }
         }
     };
 

@@ -11,15 +11,8 @@ import lessonRouter from './routes/lesson.routes.js';
 import progressRouter from './routes/progress.routes.js';
 
 import rateLimit from 'express-rate-limit';
-
-//import changePasswordRoute from './users/changePassword/route.js'
-//import forgotPasswordRoute from './users/forgotPassword/route.js'
-//import loginRoute from './users/login/route.js' 
-//import logoutRoute from './users/logout/route.js'
-//import signupRoute from './users/signup/route.js'
-//import verifyEmailRoute from './users/verifyEmail/route.js'
-//import verifyPasswordRoute from './users/verifyPassword/route.js'
-//import AboutMe from './me/route.js';
+import crypto from 'crypto';
+// import verifyCsrf from './middlewares/verifyCsrf.js';
 
 
 dotenv.config();
@@ -32,6 +25,19 @@ app.use(cors({
   origin: process.env.DOMAIN,
   credentials: true
 }))
+
+// app.get('*', (req, res, next) => {
+//   const token = crypto.randomBytes(24).toString('hex');
+//   res.cookie('XSRF-TOKEN', token, {
+//     httpOnly: false,      // allow JS to read
+//     sameSite: 'Strict',
+//     secure: process.env.NODE_ENV === 'production',
+//     maxAge: 3600 * 1000
+//   });
+//   req.csrfToken = token;
+//   next();
+// });
+
 
 const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,

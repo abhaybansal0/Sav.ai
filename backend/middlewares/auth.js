@@ -23,6 +23,7 @@ const auth = async (req, res, next) => {
         });
 
         if (!user) {
+            res.clearCookie('Authorization');
             return res.status(401).send({ error: "Invalid Token" })
         }
 
@@ -31,8 +32,27 @@ const auth = async (req, res, next) => {
         next();
 
     } catch (error) {
-        console.log(error)
-        res.status(401).send({ error: "Please authenticate." })
+        console.log(error);
+
+        if (error.name === 'TokenExpiredError') {
+            // Clear the expired cookie
+            res.clearCookie('Authorization');
+            return res.status(401).json({
+                error: "Token Expired",
+                code: "TOKEN_EXPIRED",
+                expiredAt: error.expiredAt
+            });
+        }
+
+        if (error.name === 'JsonWebTokenError') {
+            res.clearCookie('Authorization');
+            return res.status(401).json({
+                error: "Invalid Token",
+                code: "INVALID_TOKEN"
+            });
+        }
+
+        res.status(401).send({ error: "Please Authenticate." })
     }
 }
 

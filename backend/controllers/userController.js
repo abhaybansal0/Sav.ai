@@ -4,6 +4,7 @@ import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv'
 import sendMail from "../helpers/mailer.js"
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -120,18 +121,10 @@ const registerUser = async (req, res) => {
         newUser.tokens.push(token);
         await newUser.save();
 
-        res.cookie("Authorization", token, {
-            httpOnly: true,
-            sameSite: "Strict",
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 10 * 24 * 60 * 60 * 1000
-        });
-
         const streakObj = {
             streak: 0,
             lastStreakDate: new Date(0)
         }
-
         res.cookie("user-streak", JSON.stringify(streakObj), {
             httpOnly: false,
             secure: process.env.NODE_ENV === 'production',
@@ -412,7 +405,26 @@ const changePassword = async (req, res) => {
         user.forgotPasswordToken = undefined;
         user.forgotPasswordTokenExpiry = undefined;
 
+        const tokenData = {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }
+
+        const loginToken = jwt.sign(tokenData, process.env.TOKEN_SECRET,
+            { expiresIn: '10d' }
+        )
+
+        user.tokens.push(token);
         await user.save();
+
+
+        res.cookie("Authorization", loginToken, {
+            httpOnly: true,
+            sameSite: "Strict",
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 10 * 24 * 60 * 60 * 1000
+        });
 
         res.status(200).json({
             message: 'Password reset successful!',
@@ -447,7 +459,6 @@ const verifyEmail = async (req, res) => {
             verifyToken: token,
             verifyTokenExpiry: { $gt: Date.now() }
         })
-        // console.log(token);
 
         if (!user) {
             return res.status(400).send({
@@ -467,7 +478,17 @@ const verifyEmail = async (req, res) => {
         user.verifyToken = undefined
         user.verifyTokenExpiry = undefined
 
+        const loginToken = user.tokens[0];
         await user.save();
+
+
+        res.cookie("Authorization", loginToken, {
+            httpOnly: true,
+            sameSite: "Strict",
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 10 * 24 * 60 * 60 * 1000
+        });
+
 
         res.status(200).send({
             message: "Email verified successfull!",
@@ -507,7 +528,6 @@ const aboutMe = async (req, res) => {
     }
 }
 
-
 // Delete profile
 const deleteProfile = async (req, res) => {
 
@@ -544,11 +564,10 @@ const setTheme = async (req, res) => {
         const userId = req.user._id;
         const theme = req.body.theme;
 
-        const newTheme = await User.findOneAndUpdate({ _id: userId }, {
+        await User.findOneAndUpdate({ _id: userId }, {
             $set: { 'preferences.theme': theme }
         })
 
-        await newTheme.save();
 
         res.cookie("user-theme", theme, {
             httpOnly: false,

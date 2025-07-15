@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import auth from "../middlewares/auth.js"
 import rateLimit from 'express-rate-limit'
 
-import { getSubjectProgress, submitLessonProgress} from '../controllers/progressController.js'
+import { getSubjectProgress, submitLessonProgress, submitpreferences} from '../controllers/progressController.js'
 import authorize from '../middlewares/authorize.js'
 
 
@@ -27,6 +27,7 @@ const router = new express.Router();
 
 router.get('/subject', auth, getSubjectProgress)
 router.post('/submit', auth, submitLessonProgress);
+router.post('/submitpreferences', auth, submitpreferences);
 router.get('/analytics', auth, authorize);
 
 export default router

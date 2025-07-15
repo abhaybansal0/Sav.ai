@@ -13,7 +13,7 @@ const GalaxyUnit = ({ unit, i }: Props) => {
     const progress = (unit.userCompletedLessonsCount / unit.lessonCount) * 100 || 0;
 
     return (
-        <div className={`relative flex items-center justify-center gap-36 ${i % 2 === 0 ? 'flex-row-reverse' : ''}`} >
+        <div className={`relative flex items-center justify-center gap-36 md:gap-20 ${i % 2 === 0 ? 'flex-row-reverse' : ''}`} >
 
             <Link href={`/courses/unit/${unit._id}`}>
                 <div className="galaxy cursor-pointer ">

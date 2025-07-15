@@ -51,7 +51,7 @@ export default function Testimonials() {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
+        <h2 className="text-4xl font-bold text-center mb-16 text-gray-900 md:text-3xl">
           What Learners Say
         </h2>
         
@@ -63,14 +63,14 @@ export default function Testimonials() {
             {testimonials.map((testimonial, index) => (
               <div 
                 key={index}
-                className="min-w-full flex-shrink-0 px-4" // Added horizontal padding
+                className="min-w-full flex-shrink-0 px-4"
               >
-                <div className="max-w-4xl mx-auto bg-blue-50 rounded-2xl p-8 md:p-12">
-                  <p className="text-xl md:text-2xl text-gray-600 mb-6 leading-relaxed">
+                <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-12 border border-gray-100 lg:p-8">
+                  <p className="text-2xl text-gray-700 mb-6 leading-relaxed lg:text-xl md:text-lg">
                     &quot;{testimonial.text}&quot;
                   </p>
                   <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold">
                       {testimonial.author[0]}
                     </div>
                     <div className="min-w-0">
@@ -91,7 +91,7 @@ export default function Testimonials() {
         <div className="flex justify-center gap-4 mt-8">
           <button 
             onClick={prevSlide}
-            className="p-3 rounded-full bg-blue-100 hover:bg-blue-200 transition"
+            className="p-3 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors duration-200"
             onMouseEnter={() => setAutoPlay(false)}
             onMouseLeave={() => setAutoPlay(true)}
           >
@@ -101,7 +101,7 @@ export default function Testimonials() {
           </button>
           <button 
             onClick={nextSlide}
-            className="p-3 rounded-full bg-blue-100 hover:bg-blue-200 transition"
+            className="p-3 rounded-full bg-blue-100 hover:bg-blue-200 transition-colors duration-200"
             onMouseEnter={() => setAutoPlay(false)}
             onMouseLeave={() => setAutoPlay(true)}
           >
@@ -115,7 +115,7 @@ export default function Testimonials() {
           {testimonials.map((_, index) => (
             <div 
               key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
+              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                 index === currentIndex ? 'bg-blue-600' : 'bg-blue-200'
               }`}
             />

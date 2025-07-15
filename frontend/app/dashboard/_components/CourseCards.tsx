@@ -1,4 +1,6 @@
+'use client'
 import React from 'react';
+import { motion } from 'framer-motion';
 import ProgressBar from '@/components/CourseProgressBar';
 import Link from 'next/link';
 
@@ -13,26 +15,57 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ title, progress, color, isStarted, subId, tag }) => {
     return (
-        <div className="bg-white dark:bg-black/10 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <motion.div 
+            className="bg-white dark:bg-black/10 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+                duration: 0.3,
+                ease: "easeOut"
+            }}
+            whileHover={{ 
+                scale: 1.015,
+                transition: { duration: 0.2 }
+            }}
+        >
             <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}>
+                    <motion.div 
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center ${color}`}
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ 
+                            duration: 0.3,
+                            delay: 0.1
+                        }}
+                    >
                         <div className="w-6 h-6 bg-white bg-opacity-30 rounded-full"></div>
-                    </div>
+                    </motion.div>
                     <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <motion.h3 
+                            className="text-lg font-semibold text-gray-900 dark:text-white"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ 
+                                duration: 0.3,
+                                delay: 0.2
+                            }}
+                        >
                             {title}
-                        </h3>
-                        {/* <div className='py-1 px-2 rounded-full bg-green-100 text-center flex items-center justify-center'>
-
-                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">{tag}</p>
-                        </div> */}
+                        </motion.h3>
                     </div>
                 </div>
-                {/* <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" /> */}
             </div>
 
-            <div className="space-y-3">
+            <motion.div 
+                className="space-y-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ 
+                    duration: 0.3,
+                    delay: 0.3
+                }}
+            >
                 <div className="flex items-center justify-between ">
                     <span className="text-sm text-gray-500 dark:text-gray-400">Progress</span>
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
@@ -43,16 +76,24 @@ const CourseCard: React.FC<CourseCardProps> = ({ title, progress, color, isStart
                 <ProgressBar progress={progress} />
 
                 <Link href={`courses/${subId}`} className='hover:cursor-pointer'>
-                    <button className={`w-full py-3 px-4 rounded-lg font-medium hover:cursor-pointer transition-colors duration-200 mt-4 ${isStarted
-                        ? 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-500 hover:to-blue-800 text-white'
-                        : 'bg-gray-300 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-700'
-                        }`}>
+                    <motion.button 
+                        className={`w-full py-3 px-4 rounded-lg font-medium hover:cursor-pointer transition-colors duration-200 mt-4 ${
+                            isStarted
+                                ? 'bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-500 hover:to-blue-800 text-white'
+                                : 'bg-gray-300 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-700'
+                        }`}
+                        whileHover={{ 
+                            scale: 1.02,
+                            transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                    >
                         {isStarted ? 'Continue' : 'Start'}
-                    </button>
+                    </motion.button>
                 </Link>
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
-export default CourseCard
+export default CourseCard;

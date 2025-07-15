@@ -24,7 +24,7 @@ const StatCards = ({
         <div className='flex items-center justify-center gap-4 mt-8 md:flex-col'>
 
             {/* XP Card */}
-            <div className="w-full md:w-5/7  border  text-black rounded-lg px-6 py-6 
+            <div className="w-full md:w-5/7  border backdrop-blur-sm text-black rounded-lg px-6 py-6 
             bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-800
             ">
                 <div className="flex items-center justify-between">
@@ -37,7 +37,7 @@ const StatCards = ({
             </div>
 
             {/* Streak Card */}
-            <div className="w-full md:w-5/7  border  text-black rounded-lg px-6 py-6 
+            <div className="w-full md:w-5/7  border backdrop-blur-sm text-black rounded-lg px-6 py-6 
             bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-orange-200 dark:border-orange-800
             ">
                 <div className="flex items-center justify-between">
@@ -52,7 +52,7 @@ const StatCards = ({
             </div>
 
             {/* Courses Completed Card */}
-            <div className="w-full md:w-5/7  border  text-black rounded-lg px-6 py-6 
+            <div className="w-full md:w-5/7  border backdrop-blur-sm text-black rounded-lg px-6 py-6 
                 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800            ">
                 <div className="flex items-center justify-between">
                     <div>
@@ -67,7 +67,7 @@ const StatCards = ({
 
 
             {/* Today Progress Card */}
-            <div className="w-full md:w-5/7  border  text-black rounded-lg px-6 py-6 
+            <div className="w-full md:w-5/7  border backdrop-blur-sm text-black rounded-lg px-6 py-6 
                 bg-gradient-to-br from-blue-50 to-blue-50 dark:from-blue-900/20 dark:to-blue-900/20 border-blue-200 dark:border-blue-800        ">
                 <div className="flex items-center justify-between">
                     <div>

@@ -1,327 +1,190 @@
-import React from 'react';
-import { Check, Play, Lock, Clock, Trophy, Zap, BookOpen, Star } from 'lucide-react';
+import MentorAvatar from '@/components/MentorAvatar';
+import React from 'react'
+import AlienUFO from '../../../components/SpaceShip';
 
-const UnitsPage = () => {
-  const units = [
-    {
-      id: 1,
-      title: "Variables and Data Types",
-      xp: 100,
-      difficulty: 3,
-      lessons: 4,
-      completed: true,
-      status: "completed",
-      planet: "earth",
-      color: "from-green-400 to-blue-500"
-    },
-    {
-      id: 2,
-      title: "Functions and Scope",
-      xp: 200,
-      difficulty: 3,
-      lessons: 4,
-      completed: true,
-      status: "completed",
-      planet: "mars",
-      color: "from-red-400 to-orange-500"
-    },
-    {
-      id: 3,
-      title: "Objects and Arrays",
-      xp: 150,
-      difficulty: 2,
-      lessons: 5,
-      completed: false,
-      status: "current",
-      planet: "jupiter",
-      color: "from-yellow-400 to-orange-600"
-    },
-    {
-      id: 4,
-      title: "Control Flow",
-      xp: 175,
-      difficulty: 3,
-      lessons: 30,
-      completed: false,
-      status: "current",
-      planet: "saturn",
-      color: "from-purple-400 to-pink-500"
-    },
-    {
-      id: 5,
-      title: "DOM Manipulation",
-      xp: 120,
-      difficulty: 2,
-      lessons: 3,
-      completed: false,
-      status: "locked",
-      planet: "neptune",
-      color: "from-blue-400 to-indigo-600"
-    }
-  ];
+const SpaceCraft = ({ theme, isFlying = false, size = 'medium' }: {
+  theme: string,
+  isFlying: boolean,
+  size: 'small' | 'medium' | 'large'
+}) => {
 
-  const generateLessons = (unitId, totalLessons, status) => {
-    const lessons = [];
-    for (let i = 0; i < totalLessons; i++) {
-      let lessonStatus = 'locked';
-      if (status === 'completed') {
-        lessonStatus = 'completed';
-      } else if (status === 'current' && i < 2) {
-        lessonStatus = i === 0 ? 'completed' : 'current';
-      }
-
-      lessons.push({
-        id: `${unitId}-${i}`,
-        number: i + 1,
-        status: lessonStatus
-      });
-    }
-    return lessons;
+  const sizeClasses = {
+    small: 'w-16 h-20',
+    medium: 'w-20 h-24',
+    large: 'w-24 h-28'
   };
 
-  const PlanetaryUnit = ({ unit, index }) => {
-    const lessons = generateLessons(unit.id, unit.lessons, unit.status);
-
-    const getStatusIcon = () => {
-      switch (unit.status) {
-        case 'completed':
-          return <Check className="w-4 h-4 text-green-600" />;
-        case 'current':
-          return <Play className="w-4 h-4 text-blue-600" />;
-        case 'locked':
-          return <Lock className="w-4 h-4 text-gray-400" />;
-        default:
-          return <BookOpen className="w-4 h-4" />;
-      }
-    };
-
-    const getStatusColor = () => {
-      switch (unit.status) {
-        case 'completed':
-          return 'border-green-500 bg-green-50 dark:bg-green-900/20';
-        case 'current':
-          return 'border-blue-500 bg-blue-50 dark:bg-blue-900/20';
-        case 'locked':
-          return 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50';
-        default:
-          return 'border-gray-300 dark:border-gray-600';
-      }
-    };
-
-    const getLessonIcon = (lessonStatus) => {
-      switch (lessonStatus) {
-        case 'completed':
-          return <Check className="w-3 h-3 text-green-600" />;
-        case 'current':
-          return <Play className="w-3 h-3 text-blue-600" />;
-        case 'locked':
-          return <Lock className="w-3 h-3 text-gray-400" />;
-        default:
-          return null;
-      }
-    };
-
-    const getLessonColor = (lessonStatus) => {
-      switch (lessonStatus) {
-        case 'completed':
-          return 'bg-green-500 border-green-600';
-        case 'current':
-          return 'bg-blue-500 border-blue-600';
-        case 'locked':
-          return 'bg-gray-300 dark:bg-gray-600 border-gray-400';
-        default:
-          return 'bg-gray-300 border-gray-400';
-      }
-    };
-
-    return (
-      <div className="relative flex items-center justify-center min-h-[400px] mb-16">
-        {/* Orbital Ring */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-80 h-80 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-full opacity-30" />
-        </div>
-
-        {/* Central Planet */}
-        <div className="relative z-10">
-          <div className={`w-32 h-32 rounded-full bg-gradient-to-br ${unit.color} shadow-2xl animate-spin-slow flex items-center justify-center`}>
-            {/* Planet surface details */}
-            <div className="absolute inset-2 rounded-full bg-black/10" />
-            <div className="absolute top-4 left-6 w-4 h-4 rounded-full bg-black/20" />
-            <div className="absolute bottom-6 right-4 w-6 h-6 rounded-full bg-white/20" />
-            <div className="absolute top-8 right-8 w-2 h-2 rounded-full bg-white/30" />
-          </div>
-        </div>
-        {/* Orbiting Satellites */}
-        {lessons.map((lesson, lessonIndex) => {
-          const angle = (lessonIndex * 360) / lessons.length;
-          const radius = 140;
-
-          return (
-            <div
-              key={lesson.id}
-              className="absolute z-20"
-              style={{
-                left: '50%',
-                top: '50%',
-                transform: `rotate(${angle}deg)`,
-                transformOrigin: '0 0'
-              }}
-            >
-              <div
-                className="w-3 h-3 rounded-full bg-white/80 shadow-lg animate-pulse"
-                style={{
-                  transform: `translateX(${radius}px)`,
-                  animation: `inherit-rotation 12s linear infinite`,
-                  animationDelay: `${lessonIndex * 0.5}s`
-                }}
-              >
-              </div>
-            </div>
-          );
-        })}
-
-        {/* Unit Info Card */}
-        {/* <div className={`absolute -right-4 top-8 w-64 border-2 rounded-xl p-4 ${getStatusColor()} shadow-lg z-30`}>
-          <div className="flex items-center gap-2 mb-2">
-            {getStatusIcon()}
-            <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
-              {unit.title}
-            </h3>
-          </div>
-
-          <div className="space-y-2 text-xs text-gray-600 dark:text-gray-400">
-            <div className="flex items-center gap-2">
-              <Zap className="w-3 h-3 text-yellow-600" />
-              <span>{unit.xp} XP</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Clock className="w-3 h-3" />
-              <span>{unit.lessons} lessons</span>
-            </div>
-
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 text-yellow-500" />
-              <div className="flex gap-1">
-                {[1, 2, 3].map((star) => (
-                  <div
-                    key={star}
-                    className={`w-1.5 h-1.5 rounded-full ${star <= unit.difficulty
-                      ? 'bg-yellow-400'
-                      : 'bg-gray-300 dark:bg-gray-600'
-                      }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-3">
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-              Progress: {lessons.filter(l => l.status === 'completed').length}/{lessons.length}
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
-              <div
-                className="bg-blue-500 h-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: `${(lessons.filter(l => l.status === 'completed').length / lessons.length) * 100}%`
-                }}
-              />
-            </div>
-          </div>
-        </div> */}
-      </div>
-    );
-  };
+  const hoverAnimation = isFlying ? 'animate-bounce' : 'hover:scale-110';
 
   return (
-    <div className="min-h-screen pt-32 px-6 bg-gray-900 text-white relative overflow-hidden">
-      {/* Cosmic Background */}
-      {/* Stars */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#130F40] to-[#0b0c10]
-">
-        {[...Array(100)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+    <div className={`relative z-10 ${hoverAnimation} transition-transform ease-in-out duration-300`}>
+            <div className={`${sizeClasses[size]} theme-${theme} relative`}>
+                
+                {/* Sharp nose cone - very pointed */}
+                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-8 bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 shadow-lg overflow-hidden" style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30" />
+                    <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-2 h-3 bg-white/25 blur-sm" />
+                </div>
 
-      {/* Navigation breadcrumb */}
-      <div className="relative z-10 bg-black/20 backdrop-blur-sm px-6 py-4">
-        <div className="max-w-7xl mx-auto">
-          <nav className="text-sm text-gray-300">
-            <span>Dashboard</span>
-            <span className="mx-2">›</span>
-            <span>Courses</span>
-            <span className="mx-2">›</span>
-            <span className="text-white font-medium">JavaScript Fundamentals</span>
-          </nav>
-        </div>
-      </div>
+                {/* Main hull/body - realistic metallic finish */}
+                <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-12 h-16 bg-gradient-to-b from-gray-400 via-gray-500 to-gray-700 rounded-t-lg rounded-b-2xl shadow-2xl shadow-gray-800 dark:shadow-black overflow-hidden">
+                    
+                    {/* Cockpit window - realistic glass effect */}
+                    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-6 h-4 bg-gradient-to-b from-cyan-200/90 via-blue-400/70 to-blue-700/50 rounded-t-2xl rounded-b-sm shadow-inner">
+                        <div className="absolute inset-0.5 rounded-t-2xl rounded-b-sm bg-gradient-to-b from-white/50 via-cyan-100/30 to-transparent" />
+                        <div className="absolute top-0.5 left-0.5 w-2 h-1.5 rounded-full bg-white/70 blur-sm" />
+                        <div className="absolute bottom-0.5 right-0.5 w-1.5 h-1 rounded-full bg-white/40 blur-sm" />
+                    </div>
 
-      {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-        {/* Course header */}
-        <div className="mb-12 text-center">
-          <div className="bg-gray-50/5 backdrop-blur-md rounded-xl p-8 border border-white/10">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              JavaScript Fundamentals
-            </h1>
-            <p className="text-blue-200 mb-6 text-lg">Explore the cosmic journey of JavaScript programming</p>
+                    {/* Hull panel lines with depth */}
+                    <div className="absolute top-7 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-black/40 to-transparent shadow-sm" />
+                    <div className="absolute top-8 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    <div className="absolute top-9.5 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-black/30 to-transparent shadow-sm" />
+                    <div className="absolute top-11 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+                    <div className="absolute top-12.5 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-black/25 to-transparent shadow-sm" />
+                    
+                    {/* Engine vents - realistic heat effect */}
+                    <div className="absolute bottom-1 left-2 w-2.5 h-2.5 bg-gradient-radial from-orange-400 via-red-500 to-red-800 rounded-full shadow-inner">
+                        <div className="absolute inset-0.5 rounded-full bg-gradient-radial from-yellow-300/60 to-orange-600/40" />
+                        <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white/40 blur-sm" />
+                    </div>
+                    <div className="absolute bottom-1 right-2 w-2.5 h-2.5 bg-gradient-radial from-orange-400 via-red-500 to-red-800 rounded-full shadow-inner">
+                        <div className="absolute inset-0.5 rounded-full bg-gradient-radial from-yellow-300/60 to-orange-600/40" />
+                        <div className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white/40 blur-sm" />
+                    </div>
 
-            <div className="flex items-center justify-center gap-8 text-sm mb-6">
-              <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-yellow-400" />
-                <span>1030 / 1200 XP</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-orange-400">🔥</span>
-                <span>5 day streak!</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Trophy className="w-5 h-5 text-yellow-400" />
-                <span>85% Complete</span>
-              </div>
+                    {/* Side panels with realistic depth */}
+                    <div className="absolute top-8 left-0 w-1.5 h-6 bg-gradient-to-b from-gray-500 via-gray-600 to-gray-700 rounded-l-sm shadow-lg">
+                        <div className="absolute inset-0.5 rounded-l-sm bg-gradient-to-b from-white/15 via-transparent to-black/20" />
+                    </div>
+                    <div className="absolute top-8 right-0 w-1.5 h-6 bg-gradient-to-b from-gray-500 via-gray-600 to-gray-700 rounded-r-sm shadow-lg">
+                        <div className="absolute inset-0.5 rounded-r-sm bg-gradient-to-b from-white/15 via-transparent to-black/20" />
+                    </div>
+
+                    {/* Hull surface details */}
+                    <div className="absolute inset-0 rounded-t-lg rounded-b-2xl bg-gradient-to-br from-white/15 via-transparent to-black/25" />
+                    <div className="absolute top-1 left-1 w-6 h-8 bg-white/20 rounded-t-lg rounded-b-xl blur-md" />
+                </div>
+
+                {/* Sharp swept wings - more realistic */}
+                <div className="absolute top-10 left-0 w-5 h-10 bg-gradient-to-br from-gray-400 via-gray-500 to-gray-700 transform -skew-y-12 shadow-2xl overflow-hidden" style={{ clipPath: 'polygon(0% 0%, 100% 20%, 100% 80%, 0% 100%)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30" />
+                    <div className="absolute top-1 left-1 w-2 h-6 bg-gradient-to-b from-white/30 to-transparent rounded-full blur-sm" />
+                    {/* Wing tip light */}
+                    <div className="absolute bottom-2 left-1 w-2 h-2 rounded-full bg-gradient-radial from-green-300 via-green-400 to-green-600 shadow-lg animate-pulse" style={{ animationDuration: '2s' }}>
+                        <div className="absolute inset-0.5 rounded-full bg-green-200/60" />
+                    </div>
+                </div>
+
+                <div className="absolute top-10 right-0 w-5 h-10 bg-gradient-to-bl from-gray-400 via-gray-500 to-gray-700 transform skew-y-12 shadow-2xl overflow-hidden" style={{ clipPath: 'polygon(0% 20%, 100% 0%, 100% 100%, 0% 80%)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-bl from-white/20 via-transparent to-black/30" />
+                    <div className="absolute top-1 right-1 w-2 h-6 bg-gradient-to-b from-white/30 to-transparent rounded-full blur-sm" />
+                    {/* Wing tip light */}
+                    <div className="absolute bottom-2 right-1 w-2 h-2 rounded-full bg-gradient-radial from-red-300 via-red-400 to-red-600 shadow-lg animate-pulse" style={{ animationDuration: '2s', animationDelay: '1s' }}>
+                        <div className="absolute inset-0.5 rounded-full bg-red-200/60" />
+                    </div>
+                </div>
+
+                {/* Rear stabilizers - sharp fins */}
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-5 bg-gradient-to-b from-gray-500 via-gray-600 to-gray-800 shadow-lg overflow-hidden" style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/20" />
+                    <div className="absolute top-0.5 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white/20 blur-sm" />
+                </div>
+
+                {/* Engine glow effect when flying - realistic plasma */}
+                {isFlying && (
+                    <>
+                        <div className="absolute bottom-0 left-2 w-2.5 h-8 bg-gradient-to-b from-transparent via-cyan-400/80 to-cyan-600/90 rounded-b-full shadow-lg blur-sm animate-pulse" style={{ animationDuration: '0.5s' }} />
+                        <div className="absolute bottom-0 right-2 w-2.5 h-8 bg-gradient-to-b from-transparent via-cyan-400/80 to-cyan-600/90 rounded-b-full shadow-lg blur-sm animate-pulse" style={{ animationDuration: '0.5s', animationDelay: '0.1s' }} />
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-12 bg-gradient-to-b from-transparent via-cyan-300/60 to-cyan-500/80 rounded-b-full shadow-xl blur-md animate-pulse" style={{ animationDuration: '0.8s' }} />
+                    </>
+                )}
+
+                {/* Communication antenna - detailed */}
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-0.5 h-4 bg-gradient-to-t from-gray-500 to-gray-700 shadow-sm">
+                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-radial from-red-400 via-red-500 to-red-700 rounded-full shadow-lg animate-pulse" style={{ animationDuration: '1.5s' }}>
+                        <div className="absolute inset-0.5 rounded-full bg-red-200/60" />
+                    </div>
+                </div>
+
+                {/* Landing gear system (when not flying) */}
+                {!isFlying && (
+                    <>
+                        {/* Landing struts */}
+                        <div className="absolute bottom-0 left-3 w-1 h-3 bg-gradient-to-b from-gray-500 to-gray-700 shadow-lg">
+                            <div className="absolute inset-0.5 bg-gradient-to-b from-white/20 to-transparent rounded-full" />
+                        </div>
+                        <div className="absolute bottom-0 right-3 w-1 h-3 bg-gradient-to-b from-gray-500 to-gray-700 shadow-lg">
+                            <div className="absolute inset-0.5 bg-gradient-to-b from-white/20 to-transparent rounded-full" />
+                        </div>
+                        
+                        {/* Landing pads */}
+                        <div className="absolute -bottom-1 left-2 w-3 h-1.5 bg-gradient-to-b from-gray-600 to-gray-800 rounded-full shadow-xl">
+                            <div className="absolute inset-0.5 rounded-full bg-gradient-to-b from-white/15 to-transparent" />
+                        </div>
+                        <div className="absolute -bottom-1 right-2 w-3 h-1.5 bg-gradient-to-b from-gray-600 to-gray-800 rounded-full shadow-xl">
+                            <div className="absolute inset-0.5 rounded-full bg-gradient-to-b from-white/15 to-transparent" />
+                        </div>
+
+                        {/* Landing gear connections (for large size) */}
+                        {size === 'large' && (
+                            <>
+                                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-2 bg-gradient-to-b from-gray-400 to-gray-600 rounded-lg shadow-lg">
+                                    <div className="absolute inset-0.5 rounded-lg bg-gradient-to-b from-white/20 via-transparent to-black/15" />
+                                </div>
+                                <div className="absolute bottom-1 left-2.5 w-1.5 h-1.5 bg-gradient-to-b from-gray-500 to-gray-700 rounded-full shadow-inner" />
+                                <div className="absolute bottom-1 right-2.5 w-1.5 h-1.5 bg-gradient-to-b from-gray-500 to-gray-700 rounded-full shadow-inner" />
+                            </>
+                        )}
+                    </>
+                )}
+
+                {/* Hull surface details */}
+                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-transparent via-gray-400/60 to-transparent rounded-full shadow-sm" />
+                <div className="absolute top-13 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-transparent via-gray-300/40 to-transparent" />
+                
+                {/* Navigation lights - realistic with glow */}
+                <div className="absolute top-5 left-0.5 w-1.5 h-1.5 bg-gradient-radial from-blue-300 via-blue-400 to-blue-600 rounded-full shadow-lg animate-pulse" style={{ animationDuration: '3s' }}>
+                    <div className="absolute inset-0.5 rounded-full bg-blue-200/60" />
+                    <div className="absolute -inset-0.5 rounded-full bg-blue-400/30 blur-sm" />
+                </div>
+                <div className="absolute top-5 right-0.5 w-1.5 h-1.5 bg-gradient-radial from-blue-300 via-blue-400 to-blue-600 rounded-full shadow-lg animate-pulse" style={{ animationDuration: '3s', animationDelay: '1.5s' }}>
+                    <div className="absolute inset-0.5 rounded-full bg-blue-200/60" />
+                    <div className="absolute -inset-0.5 rounded-full bg-blue-400/30 blur-sm" />
+                </div>
+
+                {/* Additional surface weathering */}
+                <div className="absolute top-9 left-2 w-4 h-2 bg-black/10 rounded-full blur-sm" />
+                <div className="absolute top-14 right-2 w-3 h-1.5 bg-black/8 rounded-full blur-sm" />
+                <div className="absolute top-11 left-1/2 transform -translate-x-1/2 w-2 h-3 bg-white/10 rounded-full blur-md" />
             </div>
-
-            {/* Progress bar */}
-            <div className="max-w-md mx-auto">
-              <div className="w-full bg-white/20 rounded-full h-3">
-                <div className="bg-gradient-to-r from-blue-400 to-purple-400 h-3 rounded-full" style={{ width: '85%' }}></div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        {/* Solar System of Units */}
-        <div className="mb-12">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              Course Universe
-            </h2>
-            <p className="text-gray-300">Each planet represents a unit, with orbiting lessons to master</p>
-          </div>
-
-          <div className="space-y-8">
-            {units.map((unit, index) => (
-              <PlanetaryUnit key={unit.id} unit={unit} index={index} />
-            ))}
-          </div>
-        </div>
-
-
-      </div>
-
-    </div>
   );
 };
 
-export default UnitsPage;
+
+
+const page = () => {
+  return (
+    <div className="flex items-center justify-center gap-8 p-8 bg-gray-900 pt-72">
+      <SpaceCraft theme="blue" isFlying={false} size="small" />
+      <SpaceCraft theme="green" isFlying={true} size="medium" />
+      <SpaceCraft theme="purple" isFlying={false} size="large" />
+
+
+      <MentorAvatar
+        seed="newton"
+        options={{
+          hair: ['short15'],
+          facialHair: ['beardMedium'],
+          clothes: ['shirt'],
+        }}
+        className="w-32 h-32"
+      />
+
+      <AlienUFO size='large' />
+    </div>
+  )
+}
+
+export default page

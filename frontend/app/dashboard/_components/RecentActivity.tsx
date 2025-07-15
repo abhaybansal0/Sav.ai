@@ -46,7 +46,7 @@ const RecentActivity: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-50 dark:bg-sectionDark  rounded-xl p-6 shadow-sm w-full">
+        <div className="bg-white/40  dark:bg-gray-900/50 backdrop-blur-sm   rounded-2xl p-6 shadow-sm w-full">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                 Recent Activity
             </h2>

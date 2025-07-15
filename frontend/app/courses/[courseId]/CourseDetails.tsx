@@ -1,6 +1,6 @@
-import { ChevronRight, Zap, Trophy, Flame } from 'lucide-react'
-import Link from 'next/link'
 import React from 'react'
+import { ChevronRight, Zap, Trophy, Flame } from 'lucide-react'
+import BreadCrumbs from './BreadCrumbs'
 
 interface Props {
     courseDetails: {
@@ -20,31 +20,15 @@ const CourseDetails = ({ courseDetails }: Props) => {
     const progressPer = (courseDetails.totalCompletedLessons / courseDetails.totalLessons) * 100 || 0;
 
     return (
-        <div className='w-full  pt-24 tracking-normal px-12 md:px-4 pb-4'>
-            <div className='flex gap-2 items-center justify-start text-sm font-semibold'>
-                <Link href={'/dashboard'}>
-                    <span className='text-gray-500 dark:text-gray-300'>
-                        Dashbord
-                    </span>
-                </Link>
-                <ChevronRight size={15} className='' />
-                <Link href={'/courses'}>
-                    <span className='text-gray-500 dark:text-gray-300'>
-                        Courses
-                    </span>
-                </Link>
-                <ChevronRight size={15} className='' />
-                <span className='text-blue-500 dark:text-blue-400'>
-                    {courseDetails.name}
-                </span>
+        <div className='w-full  pt-24 tracking-normal px-12 md:px-4 pb-4 '>
 
-            </div>
-
+            <BreadCrumbs courseName={courseDetails.name} />
 
             {/* Course Header */}
-            <div className='mt-8 w-full mx-auto bg-gray-200/25 dark:bg-transparent backdrop-blur-sm rounded-xl p-6
-            flex flex-col items-center justify-center gap-4'>
-                <span className='text-4xl font-semibold '>
+            <div className='mt-8  mx-auto w-3/4 p-8 rounded-2xl bg-white/50 dark:bg-gray-800/40 backdrop-blur-sm  
+            flex flex-col items-center justify-center gap-4 md:w-full
+            text-lg md:text-sm'>
+                <span className='text-4xl font-semibold md:text-3xl'>
                     {courseDetails.name}
                 </span>
 
@@ -67,7 +51,7 @@ const CourseDetails = ({ courseDetails }: Props) => {
                     </span>
                 </div>
 
-                <div className='w-2/5 h-4 rounded-full bg-gray-600 '>
+                <div className='w-3/4 md:w-full h-4 rounded-full bg-gray-600 '>
                     <div className={` h-full rounded-full
                     bg-gradient-to-r from-[#4b1d71] to-[#2962ff]`}
                         style={{ width: `${progressPer}%` }}>

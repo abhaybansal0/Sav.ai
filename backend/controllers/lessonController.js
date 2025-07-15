@@ -14,16 +14,25 @@ const getLessons = async (req, res) => {
             return res.status(400).json({ message: "Invalid unitId", success: false });
         }
 
-        const lessons = await Lesson.find({
-            unit: unitId
-        }).sort('class').lean();
-
         const populatedUnit = await Unit.findById(unitId)
             .populate({
                 path: 'lessons',
                 model: 'Lesson',
+                options: { sort: { __v: 1 } }
+            })
+            .populate({
+                path: 'subject',
+                model: 'Subject',
+                select: '_id name'
             })
             .lean();
+
+        if (!populatedUnit) {
+            return res.status(422).json({
+                message: 'Invalid unit Id',
+                success: false
+            })
+        }
 
 
         // Logic for the user progress adition
@@ -33,9 +42,10 @@ const getLessons = async (req, res) => {
         const progressDoc = await Progress.findOne({
             user: userId,
             units: {
-                $elemMatch: {unit: unitId}
+                $elemMatch: { unit: unitId }
             }
         })
+            .lean();
 
         const progressObj = progressDoc?.units.find(u => u.unit.toString() === unitId) || {};
 
@@ -46,12 +56,12 @@ const getLessons = async (req, res) => {
         )
 
         let userCompletedLessonsCount = 0;
-        for(const lesson of populatedUnit.lessons) {
+        for (const lesson of populatedUnit.lessons) {
             const completed = progressSet.has(lesson._id.toString()) ? true : false;
-            lesson.completed = completed;
-            if(completed) userCompletedLessonsCount++;
+            lesson.completed = completed || false;
+            if (completed) userCompletedLessonsCount++;
         }
-        
+
         populatedUnit.userCompletedLessonsCount = userCompletedLessonsCount;
 
         res.status(200).json({
@@ -61,7 +71,7 @@ const getLessons = async (req, res) => {
         })
 
     } catch (error) {
-        console.log('Error in fetching the Lesson:', error);
+        console.log('Error in fetching the Lessons:', error);
 
         res.status(500).send({
             message: 'Server Error, Please try again later',
@@ -84,7 +94,7 @@ const addLesson = async (req, res) => {
             })
         }
 
-        const ownerSubjectId = lesson.sub;
+        const ownerSubjectId = lesson.subject;
         const ownerUnitId = lesson.unit;
 
         lesson.creator = creator;
@@ -92,9 +102,7 @@ const addLesson = async (req, res) => {
         const savedLesson = await newLesson.save();
 
         // Unit addition
-        const ownerUnit = await Unit.findOne({
-            _id: ownerUnitId
-        });
+        const ownerUnit = await Unit.findById(ownerUnitId);
 
         if (!ownerUnit) {
             return res.status(400).json({
@@ -109,18 +117,17 @@ const addLesson = async (req, res) => {
         await ownerUnit.save();
 
         // Subject Addition
-        const ownerSubject = await Subject.findOne({
-            _id: ownerSubjectId
-        })
+        const ownerSubject = await Subject.findById(ownerSubjectId)
 
         if (!ownerSubject) {
             return res.status(400).json({
-                message: "The parent Unit does not exist",
+                message: "The parent Subject does not exist",
                 success: false
             })
         }
 
         ownerSubject.totalLessons += 1;
+        if(typeof ownerSubject.startingLesson !== mongoose.Schema.Types.ObjectId) ownerSubject.startingLesson = savedLesson._id;
         await ownerSubject.save();
 
         res.status(201).json({
@@ -148,7 +155,42 @@ const addLesson = async (req, res) => {
 }
 
 
+const getLesson = async (req, res) => {
+    try {
+
+        const { lessonId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(lessonId)) {
+            return res.status(400).json({ message: "Invalid lessonId", success: false });
+        }
+
+        const lesson = await Lesson.findById(lessonId).lean();
+
+        if (!lesson) {
+            return res.status(422).json({
+                message: 'Invalid lesson Id',
+                success: false
+            })
+        }
+
+        res.status(200).json({
+            message: 'Lesson data fetch was successfull!',
+            success: true,
+            lesson
+        })
+
+    } catch (error) {
+        console.log('Error in fetching the Lesson:', error);
+
+        res.status(500).send({
+            message: 'Server Error, Please try again later',
+            success: false
+        })
+    }
+}
+
 export {
     getLessons,
-    addLesson
+    addLesson,
+    getLesson
 }

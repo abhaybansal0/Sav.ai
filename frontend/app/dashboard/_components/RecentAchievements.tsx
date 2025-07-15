@@ -33,7 +33,7 @@ const RecentAchievements: React.FC = () => {
   ];
 
   return (
-    <div className=" bg-gray-50 dark:bg-sectionDark  rounded-xl w-full p-6 shadow-sm mt-4 ">
+    <div className=" bg-white/40  dark:bg-gray-900/50 backdrop-blur-sm   rounded-2xl w-full p-6 shadow-sm mt-4 ">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
         Achievements
       </h2>

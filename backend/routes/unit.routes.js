@@ -4,7 +4,7 @@ import auth from "../middlewares/auth.js"
 import authorize from '../middlewares/authorize.js'
 import rateLimit from 'express-rate-limit'
 
-import { getUnits, addUnit } from '../controllers/unitController.js'
+import { getUnits, addUnit, getIds } from '../controllers/unitController.js'
 
 
 dotenv.config();
@@ -26,6 +26,7 @@ const router = new express.Router();
 // });
 
 router.get('/:subjectId/', auth, getUnits)
+router.get('/getIds/:unitId/', auth, getIds)
 router.post('/addunit', auth, authorize, addUnit);
 
 export default router

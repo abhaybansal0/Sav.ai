@@ -28,8 +28,9 @@ const ClientSync = ( ) => {
                 const decoded = decodeURIComponent(raw);
                 const cookieDate = JSON.parse(decoded);
 
-                const lastDate = cookieDate.toString().slice(0, 10);
-                const today = new Date().toString().slice(0, 10);
+                const lastDate = cookieDate.lastStreakDate.toString().slice(0, 10);
+                const today = new Date().toISOString().slice(0, 10);
+
 
                 streakData = {
                     streak: cookieDate.streak,

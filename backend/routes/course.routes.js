@@ -1,5 +1,4 @@
 import express from 'express'
-import User from "../models/user.js"
 import dotenv from "dotenv"
 import auth from "../middlewares/auth.js"
 import authorize from '../middlewares/authorize.js'

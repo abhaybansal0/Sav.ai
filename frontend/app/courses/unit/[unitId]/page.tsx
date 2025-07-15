@@ -1,8 +1,8 @@
 // pages/index.tsx
 import React from 'react';
-import MentorAvatar from '@/components/MentorAvatar';
 import UnitCard from './UnitCard';
 import LessonsPath from './LessonsPath';
+import BreadCrumbs from './BreadCrumbs';
 import { getLessonsByUnitId } from '@/lib/content';
 import { UnitsType } from '@/lib/types';
 
@@ -21,15 +21,21 @@ const page = async ({ params }: Props) => {
 
     const unit = res?.unit as UnitsType;
 
-
     const { name, desciption, lessonCount, userCompletedLessonsCount, theme } = unit;
     const { lessons } = unit;
+
+    const subjectName = unit.subject.name;
+    const subjectId = unit.subject._id;
 
     const unitDetails = {
         name, desciption, lessonCount, userCompletedLessonsCount, theme
     }
 
-
+    const BreadCrumbDetails = {
+        subjectId,
+        subjectName,
+        name
+    }
 
     return (
         <div className="w-full bg-transparent overflow-hidden relative px-12 md:px-4 h-1 min-h-screen">
@@ -40,40 +46,38 @@ const page = async ({ params }: Props) => {
                 dark:bg-gradient-to-br dark:from-black dark:via-[#112236] dark:to-[#0b0c10] dark:text-white
                 ">
 
-                {[...Array(50)].map((_, i) => (
-                    <div
+                {[...Array(150)].map((_, i) => {
+                    const random = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+                    return <div
                         key={i}
-                        className="absolute w-1 h-1 bg-black dark:bg-gray-300 rounded-full animate-pulse"
+                        className={`absolute bg-black dark:bg-white rounded-full animate-pulse`}
                         style={{
+                            width: `${random}px`,
+                            height: `${random}px`,
                             left: `${Math.random() * 100}%`,
                             top: `${Math.random() * 100}%`,
                             animationDelay: `${Math.random() * 3}s`,
                             animationDuration: `${2 + Math.random() * 2}s`
                         }}
                     />
-                ))}
+                })}
             </div>
 
             <div className='h-full flex items-center justify-evenly md:flex-col'>
 
                 {/* Unit details */}
-                <UnitCard unitDetails={unitDetails} />
+                <div className='w-1/2 md:w-full 
+                h-full pt-24 flex flex-col gap-24'>
+                    <BreadCrumbs breadDetails={BreadCrumbDetails} />
+
+                    <UnitCard unitDetails={unitDetails} />
+                    
+                </div>
 
 
                 {/* Lessons Listed */}
                 <LessonsPath lessons={lessons} />
 
-
-
-                {/* <MentorAvatar
-                seed="newton"
-                options={{
-                    hair: ['short15'],
-                    facialHair: ['beardMedium'],
-                    clothes: ['shirt'],
-                }}
-                className="w-32 h-32"
-            /> */}
 
             </div>
         </div>

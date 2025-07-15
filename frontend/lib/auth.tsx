@@ -2,12 +2,19 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
+
 
 const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN
 
 export async function getUser() {
     const cookieStore = await cookies();
     const token = cookieStore.get('Authorization')?.value;
+    // const csrfToken = cookieStore.get('XSRF-TOKEN')?.value;
+
+    // const cookieHeader = cookieStore.getAll()
+    //     .map(c => `${c.name}=${c.value}`)
+    //     .join('; ');
 
     if (!token) {
         return null;
@@ -17,6 +24,8 @@ export async function getUser() {
         const res = await axios.get(`${BASE_BACKEND_URL}/api/auth/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
+                // 'X-XSRF-TOKEN': csrfToken!,
+                // cookie: cookieHeader,
             },
         })
 

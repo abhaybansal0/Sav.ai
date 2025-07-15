@@ -1,9 +1,10 @@
 import express from 'express'
 import dotenv from "dotenv"
 import auth from "../middlewares/auth.js"
+import authorize from '../middlewares/authorize.js'
 import rateLimit from 'express-rate-limit'
 
-import { getLessons, addLesson } from '../controllers/lessonController.js'
+import { getLessons, addLesson, getLesson } from '../controllers/lessonController.js'
 
 
 dotenv.config();
@@ -24,7 +25,8 @@ const router = new express.Router();
 //     legacyHeaders: false,
 // });
 
-router.get('/:unitId/', auth, getLessons)
+router.get('/:unitId/', auth, getLessons) // This is the lessosn fetch for the unit
+router.get('/lesson/:lessonId', auth, getLesson) // This is the lesson fetch for the lesson
 router.post('/addlesson', auth, addLesson);
 
 export default router

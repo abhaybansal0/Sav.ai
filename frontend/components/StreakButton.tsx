@@ -6,7 +6,6 @@ const StreakButton = () => {
 
     const { streak, streakIsActive } = useAppSelector((state) => state.user);
 
-
     return (
         <div
             className="flex items-center space-x-1  bg-gray-50 dark:bg-gray-800 px-3 py-1 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"

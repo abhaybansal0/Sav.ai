@@ -22,6 +22,7 @@ export type UserProfile = {
     isAdmin: boolean;
     avatar: string;
     level: number;
+    shipFuel: 0 | 1 | 2 | 3 | 4; 
     badges: [string];
     friends: [string];
     createdAt: Date;
@@ -54,7 +55,10 @@ export interface CoursesType {
 
 export interface UnitsType {
     _id: string;
-    subject: string;
+    subject: {
+        _id: string,
+        name: string
+    };
     name: string;
     desciption: string;
     lessonCount: number,
@@ -71,20 +75,42 @@ export interface UnitsType {
 
 export interface LessonType {
     _id: string,
-    class: number,
+    standard: number,
     chapter: string,
     concept: string,
+    theme: 'Amber' | 'Blue' | 'Green' | 'Red' | 'Purple' | 'Orange' | 'Yellow' | 'Rose',
+    creator: string,
     mentor: string,
     unit: string,
-    formulae: [],
+
+
+    // --- Core Content ---
     explanation:  string,
-    creator: string,
-    questions: [],
-    revisionCards: [],
-    prereqs: [],
+    formulae: {
+        latex: string,
+        symbols: string[],
+    }[],
+
+    // --- Questions ---
+    questions: {
+        questionText: string,
+        answerOptions: {
+            optionId: string,
+            optionText: string,
+        }[],
+        correctAnswers: string[],
+
+        explanation: string,
+        xpPoint: number
+    }[],
+
+    // --- Gamification ---
+    revisionCards: string[],
+    prereqs: string[],
     createdAt: Date,
     updatedAt: Date,
     __v: number,
+
+    // --- User Info ---
     completed: boolean,
-    theme: 'Amber' | 'Blue' | 'Green' | 'Red' | 'Purple' | 'Orange' | 'Yellow' | 'Rose'
 }

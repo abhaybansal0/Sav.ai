@@ -12,7 +12,7 @@ const getUnits = async (req, res) => {
             return res.status(400).json({ message: "Invalid subjectId", success: false });
         }
 
-        
+
         const populatedSub = await Subject.findById(subjectId)
             .populate({
                 path: 'units',
@@ -126,7 +126,41 @@ const addUnit = async (req, res) => {
     }
 }
 
+const getIds = async (req, res) => {
+    try {
+
+        const { unitId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(unitId)) {
+            return res.status(400).json({ message: "Invalid unitId", success: false });
+        }
+
+        const unit = await Unit.findById(unitId).lean();
+
+        const { subject, _id } = unit;
+
+        res.status(200).json({
+            message: 'Required Ids fetched successfully!',
+            success: true,
+            Ids: {
+                unitId: _id,
+                subId: subject
+            }
+        })
+
+
+    } catch (error) {
+        console.log('Error in making the Unit:', error);
+
+        res.status(500).send({
+            message: 'Server Error, Please try again later',
+            success: false
+        })
+    }
+}
+
 export {
     getUnits,
-    addUnit
+    addUnit,
+    getIds
 }

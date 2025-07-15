@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
         default: '' // Basic user avatart URL
     },
 
+    standard: {
+        type: String,
+    },
+
     everyDayGoal: {
         type: Number,
         default: 5
@@ -70,6 +74,12 @@ const userSchema = new mongoose.Schema({
     lastStreakDate: {
         type: Date,
         default: new Date(0)
+    },
+
+    shipFuel: {
+        type: Number,
+        enum: [0, 1, 2, 3, 4],
+        default: 4
     },
 
     coursesNo: {

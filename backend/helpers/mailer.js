@@ -62,14 +62,14 @@ const sendMail = async ({ email, mailType, userId }) => {
               </p>
               <p style="margin: 20px 0;">
                 <a 
-                  href="${process.env.DOMAIN}/${mailType === 'VERIFY' ? 'emailverify' : 'verifypass'}?token=${hashedToken}" 
+                  href="${process.env.DOMAIN}/${mailType === 'VERIFY' ? 'emailverify' : 'changepass'}?token=${hashedToken}" 
                   style="display: inline-block; padding: 10px 15px; color: #fff; background-color: #000000; text-decoration: none; border-radius: 5px;">
                   ${mailType === 'VERIFY' ? 'Verify Your Email' : 'Reset Your Password'}
                 </a>
               </p>
               <p>If the button above doesn't work, copy and paste the following link into your browser:</p>
               <p style="background-color: #f4f4f4; padding: 10px; border-radius: 5px; word-break: break-word;">
-                ${process.env.DOMAIN}/${mailType === 'VERIFY' ? 'verification' : 'passverify'}?token=${hashedToken}
+                ${process.env.DOMAIN}/${mailType === 'VERIFY' ? 'emailverify' : 'changepass'}?token=${hashedToken}
               </p>
               <p>Thank you,<br>Sav.ai Team</p>
             </div>

@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { Code, Users, BookOpen, Clock, Star, ChevronRight, Play } from 'lucide-react';
+import { Code, Users, BookOpen, Clock, Star, ChevronRight, Play, Omega } from 'lucide-react';
 import { CoursesType } from '@/lib/types';
 import Link from 'next/link';
 
 const CourseCard = ({
-    _id, name, icon, description, rating=4, students=10, duration='4 Weeks', unitCount, difficulty, progress, isStarted, gradientColors='from-blue-500 via-purple-500 to-pink-500'
+    _id, name, icon, description, rating = 4, students = 10, duration = '4 Weeks', unitCount, difficulty, progress, isStarted, gradientColors = 'from-blue-500 via-purple-500 to-pink-500'
 }: CoursesType) => {
 
 

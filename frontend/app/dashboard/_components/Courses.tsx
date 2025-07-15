@@ -16,7 +16,7 @@ const Courses = async ({ courses }: PropsType) => {
 
 
   return (
-    <div className="w-4/6 p-6 bg-gray-50 dark:bg-sectionDark  rounded-xl md:w-full md:p-4">
+    <div className="w-4/6 p-6 bg-white/40  dark:bg-gray-900/50 backdrop-blur-sm  rounded-2xl md:w-full md:p-4">
 
       <div className="flex items-center justify-between mb-8 md:flex-col">
 

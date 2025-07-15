@@ -61,7 +61,12 @@ const subjectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Unit',
         index: true
-    }]
+    }],
+
+    startingLesson: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Lesson'
+    }
 }, {
     timestamps: true
 })

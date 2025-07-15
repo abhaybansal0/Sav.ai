@@ -16,7 +16,7 @@ const questionSchema = new mongoose.Schema({
   
   explanation: String,       // Simple explanation text
   
-  pointValue: {
+  xpPoint: {
     type: Number,
     default: 10
   }
@@ -27,41 +27,45 @@ const questionSchema = new mongoose.Schema({
 const lessonSchema = new mongoose.Schema({
     //This is the lesson that the app fetches when a lesson is started
 
-    class: Number,
+    standard: Number,
     chapter: String,
     concept: String,
-
-    mentor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Mentor',
-        default: null,
-        index: true
+    creator: String,
+    subject: {
+      type: String,
+      required: true
     },
-
-    unit: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Unit',
-        required: true
-    },
-
+    
     theme: {
       type: String,
       enum: ['Amber', 'Blue', 'Green', 'Red', 'Purple', 'Orange', 'Yellow', 'Rose'],
       required: true,
       default: 'Blue'
     },
+    mentor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Mentor',
+        default: null,
+        index: true
+    },
+    unit: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Unit',
+        required: true
+    },
+
 
 
     // --- Core Content ---
+    explanation: String,
+
     formulae: [{
         latex: String,
         symbols: [String],
         _id: false
     }],
 
-    explanation: String,
 
-    creator: String,
 
 
     // --- Questions ---

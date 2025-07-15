@@ -2,6 +2,7 @@ import React from 'react'
 import HeaderII from '@/components/HeaderII'
 import { ReduxProvider } from '@/lib/redux/provider'
 import ClientSync from '../../components/ClientSync'
+import Header from '@/components/HeaderII'
 
 
 
@@ -19,7 +20,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
 
             <div className=''>
                 {/* Navbar */}
-                <HeaderII active='courses' />
+                <Header active='courses' />
             </div>
 
             <main>

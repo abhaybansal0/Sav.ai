@@ -50,10 +50,10 @@ const ForgotPass = () => {
                 return toast.error('No Email is Entered!')
             }
 
-            const response = await axios.post('/api/forgotpass', inputData)
+            const response = await axios.post('/api/auth/forgotpass', inputData)
 
-            if (response.data.message === 'Forgotpassword Link Send Successfully') {
-                toast.success('Link Send Successfully!')
+            if (response.data.success) {
+                toast.success('Link Sent Successfully!')
             }
 
             setCounter(INITIAL_COUNT);
@@ -147,6 +147,7 @@ const ForgotPass = () => {
                             id="email"
                             name="username_email"
                             type="text"
+                            disabled={sendDisabled}
                             value={inputData.username_email}
                             onChange={OnChange}
                             required

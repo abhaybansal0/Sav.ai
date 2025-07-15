@@ -13,6 +13,7 @@ import {
     deleteProfile,
     setTheme
 } from '../controllers/userController.js'
+// import verifyCsrf from '../middlewares/verifyCsrf.js' Lets add this later
 
 dotenv.config();
 

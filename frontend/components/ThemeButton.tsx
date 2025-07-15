@@ -26,7 +26,7 @@ const ThemeButton = () => {
 
             // api call to make the preference to dark
             try {
-                const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/auth/settheme`,
+                const res = await axios.post(`/api/auth/settheme`,
                     { theme: nextIsDark ? 'dark' : 'light' },
                     {
                         withCredentials: true

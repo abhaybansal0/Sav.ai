@@ -1,9 +1,13 @@
+'use client'
 import React from 'react';
 import Link from 'next/link';
-import { User } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import StreakButton from './StreakButton';
 import ThemeButton from './ThemeButton';
 import { ReduxProvider } from '@/lib/redux/provider';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface Props {
     active: 'courses' | 'dashboard' | 'profile';
@@ -11,6 +15,18 @@ interface Props {
 
 const Header: React.FC<Props> = ({ active }) => {
 
+    const router = useRouter();
+    const logoutUser = async () => {
+        try {
+            const res = await axios.post(`/api/auth/logout`, {},
+                { withCredentials: true }
+            );
+            toast.success('Logged Out Successfully!')
+            router.push('/login')
+        } catch (error) {
+            console.log("Error while logging out: ", error)
+        }
+    }
 
     return (
 
@@ -74,9 +90,11 @@ const Header: React.FC<Props> = ({ active }) => {
                     </ReduxProvider>
 
                     {/* Profile */}
-                    <Link href={'/my-space'} className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200">
-                        <User size={16} className="text-white " />
-                    </Link>
+                    <button
+                        onClick={logoutUser}
+                        className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors duration-200">
+                        <LogOut size={16} className="text-white " />
+                    </button>
                 </div>
             </div>
         </header>
@@ -84,5 +102,8 @@ const Header: React.FC<Props> = ({ active }) => {
 
     );
 };
+
+
+
 
 export default Header;

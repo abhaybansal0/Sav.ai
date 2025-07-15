@@ -1,5 +1,5 @@
 'use client'
-import React, { EventHandler, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
@@ -11,14 +11,12 @@ import { useRouter } from 'next/navigation'
 const page = () => {
 
   const router = useRouter();
-
   const [verifystatus, setVerifystatus] = useState<String>('nill')
+
 
   const verifyMe = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     try {
-
       const SearchParams = new URLSearchParams(window.location.search)
       const token = SearchParams.get("token");
 
@@ -27,30 +25,28 @@ const page = () => {
       }
 
       setVerifystatus('verifying')
+      const response = await axios.post(`/api/auth/verifyemail?token=${token}`)
 
-      const response = await axios.post(`/api/verifyemail?token=${token}`)
-
-
-      if (response.data.message === "Email Verified Successfull!") {
-
+      if (response.data.success) {
         setVerifystatus('Verified')
         toast.success('Verification Successful!');
-
         return setTimeout(() => {
-           router.push('/signin')
+           router.push('/welcome')
         }, 2000);
       }
-
-
 
     } catch (error: any) {
 
       console.log(error)
+      if(error.response.data.message === 'Invalid or expired verification token!'){
+        toast.error('User already verified!')
+      }
+
+      if(error.response.data.message === 'Verification token is required!'){
+        toast.error('Verification token Timed out!')
+      }
+    } finally {
       setVerifystatus('nill')
-
-      toast.error('Error from Server')
-      // toast.error(error.response.data.message)
-
     }
   }
 
