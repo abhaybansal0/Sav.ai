@@ -38,12 +38,12 @@ const sendMail = async ({ email, mailType, userId }) => {
 
 
         const transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io", // "smtp.gmail.com", 
+            host: "smtp.gmail.com", //"sandbox.smtp.mailtrap.io", //  
             port: 587,
             secure: false,
             auth: {
-                user:   "28e0655e7a37db", //process.env.GOOGLE_EMAIL, 
-                pass:   "b7a8db9ed5958f" //process.env.GOOGLE_PASSWORD 
+                user:   process.env.GOOGLE_EMAIL, //"28e0655e7a37db", //process.env.GOOGLE_EMAIL, 
+                pass:   process.env.GOOGLE_PASSWORD //"b7a8db9ed5958f" //
             }
         });
 
