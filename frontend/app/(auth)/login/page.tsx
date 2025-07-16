@@ -1,11 +1,10 @@
 import Link from "next/link"
 import Form from "./Form";
-import { ArrowLeft } from 'lucide-react';
 import BackBtn from "./BackBtn";
 
 const SignupPage = () => {
     return (
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-blue-50/50 to-white">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Gradient blobs */}
@@ -44,7 +43,7 @@ const SignupPage = () => {
                 {/* Links */}
                 <div className="mt-8 space-y-4">
                     <p className="text-center text-gray-600">
-                        Don't have an account?{' '}
+                        Don&apos;t have an account?{' '}
                         <Link href="/signup" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
                             Sign Up
                         </Link>
@@ -57,12 +56,7 @@ const SignupPage = () => {
                 </div>
             </div>
 
-            {/* Floating particles */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-particle"></div>
-                <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-particle-delayed"></div>
-                <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-pink-400 rounded-full animate-particle-slow"></div>
-            </div>
+
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChevronRight, Zap, Trophy, Flame } from 'lucide-react'
+import { Zap, Trophy, Flame } from 'lucide-react'
 import BreadCrumbs from './BreadCrumbs'
 
 interface Props {

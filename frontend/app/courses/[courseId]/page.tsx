@@ -4,14 +4,11 @@ import Galaxy from './GalaxyUnit'
 import { getUnitsBySubId } from '@/lib/content'
 import { UnitsType, CoursesType } from '@/lib/types'
 
-
-interface PageProps {
-  params: {
-    courseId: string
-  }
+interface Props {
+  params: Promise<{ courseId: string }>;
 }
 
-const page = async ({ params }: PageProps) => {
+const Page = async ({ params }: Props) => {
 
   const { courseId } = await params;
 
@@ -35,8 +32,8 @@ const page = async ({ params }: PageProps) => {
     ">
 
         {[...Array(200)].map((_, i) => {
-          const random = Math.floor(Math.random() * (4 - 1 + 1) +1);
-           return <div
+          const random = Math.floor(Math.random() * (4 - 1 + 1) + 1);
+          return <div
             key={i}
             className={`absolute bg-black dark:bg-white rounded-full animate-pulse`}
             style={{
@@ -66,4 +63,4 @@ const page = async ({ params }: PageProps) => {
   )
 }
 
-export default page
+export default Page

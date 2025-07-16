@@ -8,9 +8,7 @@ import { UnitsType } from '@/lib/types';
 
 
 interface Props {
-    params: {
-        unitId: string
-    }
+    params: Promise<{unitId: string}>
 }
 
 const page = async ({ params }: Props) => {

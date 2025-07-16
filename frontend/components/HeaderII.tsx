@@ -5,7 +5,7 @@ import { LogOut } from 'lucide-react';
 import StreakButton from './StreakButton';
 import ThemeButton from './ThemeButton';
 import { ReduxProvider } from '@/lib/redux/provider';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -21,10 +21,27 @@ const Header: React.FC<Props> = ({ active }) => {
             const res = await axios.post(`/api/auth/logout`, {},
                 { withCredentials: true }
             );
-            toast.success('Logged Out Successfully!')
-            router.push('/login')
-        } catch (error) {
-            console.log("Error while logging out: ", error)
+
+            if (res.data?.success) {
+                toast.success('Logged Out Successfully!')
+                router.push('/login')
+            }
+        } catch (error: unknown) {
+            if (isAxiosError(error)) {
+
+                console.log("Error while logging out: ", error)
+                if (error.response?.status === 401) {
+                    toast.error('Invalid token, Please try agian later!')
+                } else {
+                    toast.error('Error, Please try again later')
+                }
+            } else if (error instanceof Error) {
+                console.error("Something went wrong:", error.message);
+            }
+            else {
+                // totally unexpected
+                console.error("Unknown error", error);
+            }
         }
     }
 

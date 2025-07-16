@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react';
 import { useAppSelector } from '@/lib/redux/hooks';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 const ThemeButton = () => {
@@ -19,10 +19,8 @@ const ThemeButton = () => {
 
     const toggleTheme = useCallback(
         async () => {
-            const nextIsDark = !isDark;
 
-            document.documentElement.classList.toggle("dark", nextIsDark);
-            setIsDark(nextIsDark);
+            const nextIsDark = !isDark;
 
             // api call to make the preference to dark
             try {
@@ -33,9 +31,31 @@ const ThemeButton = () => {
                     }
                 );
 
-            } catch (error) {
-                console.log('Error in setting theme: ', error)
-                toast.error('Error while setting the theme')
+                if (res.data.success) {
+                    document.documentElement.classList.toggle("dark", nextIsDark);
+                    setIsDark(nextIsDark);
+                }
+            } catch (error: unknown) {
+                if (isAxiosError(error)) {
+
+                    document.documentElement.classList.toggle('dark', isDark);
+                    setIsDark(isDark);
+
+                    console.error('Error setting theme:', error);
+
+                    // Handle specific error cases
+                    if (error.response?.status === 401) {
+                        toast.error('Please login to save theme preference');
+                    } else {
+                        toast.error('Failed to save theme preference');
+                    }
+                } else if (error instanceof Error) {
+                    console.error("Something went wrong:", error.message);
+                }
+                else {
+                    // totally unexpected
+                    console.error("Unknown error", error);
+                }
             }
         },
         [isDark],
@@ -48,7 +68,7 @@ const ThemeButton = () => {
             document.documentElement.classList.toggle('dark', shouldBeDark);
             setIsDark(shouldBeDark);
         }
-    }, [userTheme]);
+    }, [userTheme, isDark]);
 
 
 

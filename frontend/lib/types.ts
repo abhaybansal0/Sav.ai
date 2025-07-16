@@ -49,6 +49,7 @@ export interface CoursesType {
     duration?: string,
     gradientColors?: string
 
+    NoOfUnitsDone: number
     totalLessons: number
     totalCompletedLessons: number
 }

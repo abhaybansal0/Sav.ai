@@ -1,6 +1,5 @@
 import React from 'react'
 import LessonGalaxy from './LessonGalaxy'
-import { UnitsType } from '@/lib/types'
 
 interface Props {
   unitDetails: {

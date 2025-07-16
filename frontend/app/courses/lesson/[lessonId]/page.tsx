@@ -7,10 +7,8 @@ import TestContainer from './_components/TestContainer'
 
 
 interface Props {
-  params: {
-    lessonId: string
-  }
-  searchParams: { mode?: 'test' };
+  params: Promise<{lessonId: string }>;
+  searchParams: Promise<{ mode?: 'test' }>;
 }
 
 const page = async ({ params, searchParams }: Props) => {

@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 axios.defaults.withCredentials = true;
 
@@ -33,8 +33,17 @@ export async function getUser() {
 
         return res.data;
 
-    } catch (error) {
-        return null;
+    } catch (error: unknown) {
+        if (isAxiosError(error)) {
+            console.log('Error while getting User Info: ', error.message)
+            return null;
+        } else if (error instanceof Error) {
+            console.error("Something went wrong:", error.message);
+        }
+        else {
+            // totally unexpected
+            console.error("Unknown error", error);
+        }
     }
 }
 

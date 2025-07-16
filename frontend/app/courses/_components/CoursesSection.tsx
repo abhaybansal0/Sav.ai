@@ -1,5 +1,5 @@
 import React from 'react'
-import { BookOpen, Code, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 import CourseCard from './CourseCard';
 import { CoursesType } from '@/lib/types';
 

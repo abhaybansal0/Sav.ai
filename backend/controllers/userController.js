@@ -268,6 +268,12 @@ const logoutUser = async (req, res) => {
             user.tokens = user.tokens.filter((t) => t !== oldToken);
             await user.save();
         }
+        else {
+            return res.status(401).json({
+                message: 'Token not provided!',
+                success: false
+            })
+        }
 
         res.cookie("token", "", {
             httpOnly: true,

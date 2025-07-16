@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { CheckCircle, Trophy, XCircle, Clock, Zap, Target, Star } from 'lucide-react'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
@@ -89,7 +89,7 @@ const TestContainer = ({ questions, revisionCard, lessonInfo }: Props) => {
         }
         getSubId();
 
-    }, [])
+    }, [lessonInfo.unit, submitInfo])
 
     const submitProgress = async () => {
         try {
@@ -166,8 +166,7 @@ const TestContainer = ({ questions, revisionCard, lessonInfo }: Props) => {
 
     // Completion screen
     if (showOutro) {
-        const totalPoints = questions.reduce((sum, q) => sum + q.xpPoint, 0);
-        const percentage = Math.round((score / totalPoints) * 100);
+        // const totalPoints = questions.reduce((sum, q) => sum + q.xpPoint, 0);
 
         return (
             <div className="w-full max-w-4xl mx-auto relative">

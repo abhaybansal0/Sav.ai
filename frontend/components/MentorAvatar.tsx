@@ -21,19 +21,16 @@ export default function MentorAvatar({
   options = {},
 }: MentorAvatarProps) {
   // this will bundle only the Adventurer style
+
   const svg = createAvatar(adventurer, {
-    "seed": "Brian",
+    "seed": seed,
     "eyebrows": [
       "variant04"
     ],
     "eyes": [
       "variant03"
     ],
-    "hair": [
-      "long22",
-      "long24",
-      "short03"
-    ],
+    "hair": options?.hair,
     "hairColor": [
       "afafaf"
     ],

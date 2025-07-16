@@ -55,18 +55,18 @@ const CheckEmailPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-blue-50/50 to-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white">      {/* Animated background elements */}
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Gradient blobs */}
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-blob"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-blob animation-delay-2000"></div>
         <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-blob animation-delay-4000"></div>
-        
+
         {/* Floating clouds */}
         <div className="absolute top-20 left-10 w-72 h-24 bg-white/20 rounded-full filter blur-2xl animate-float"></div>
         <div className="absolute top-40 right-20 w-96 h-32 bg-white/20 rounded-full filter blur-2xl animate-float-delayed"></div>
-        
+
         {/* Moving grid pattern */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-grid-pattern animate-slide"></div>
@@ -74,7 +74,7 @@ const CheckEmailPage: React.FC = () => {
       </div>
 
       {/* Back button */}
-      <button 
+      <button
         onClick={() => window.history.back()}
         className="absolute left-6 top-6 p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 z-10"
       >
@@ -97,7 +97,7 @@ const CheckEmailPage: React.FC = () => {
           </span>
         </h2>
         <p className="text-gray-600 text-lg leading-relaxed">
-          We've sent a verification link to your email. Please check your inbox and click the link to continue.
+          We&apos;ve sent a verification link to your email. Please check your inbox and click the link to continue.
         </p>
 
         {/* Resend Email Button */}
@@ -105,8 +105,8 @@ const CheckEmailPage: React.FC = () => {
           onClick={handleResend}
           disabled={isDisabled}
           className={`mt-8 w-full py-4 rounded-full font-medium shadow-lg transform transition-all duration-200 relative overflow-hidden group
-            ${isDisabled 
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+            ${isDisabled
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 hover:shadow-xl'
             }`}
         >
@@ -122,7 +122,7 @@ const CheckEmailPage: React.FC = () => {
 
         {/* Additional help text */}
         <p className="text-sm text-gray-500 mt-4">
-          Didn't receive the email? Check your spam folder.
+          Didn&apos;t receive the email? Check your spam folder.
         </p>
 
         {/* Sign-in Redirect */}
@@ -136,12 +136,7 @@ const CheckEmailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400 rounded-full animate-particle"></div>
-        <div className="absolute top-3/4 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-particle-delayed"></div>
-        <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-pink-400 rounded-full animate-particle-slow"></div>
-      </div>
+
     </div>
   );
 };

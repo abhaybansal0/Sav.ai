@@ -10,10 +10,10 @@ interface CourseCardProps {
     color: string;
     isStarted: boolean;
     subId: string;
-    tag: string;
+    tag?: string;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ title, progress, color, isStarted, subId, tag }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ title, progress, color, isStarted, subId }) => {
     return (
         <motion.div 
             className="bg-white dark:bg-black/10 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200"

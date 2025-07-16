@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Link from "next/link"
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -60,19 +60,28 @@ const ForgotPass = () => {
             setSendDisabled(true);
 
 
-        } catch (error: any) {
-            if (error.response.data.message === 'User does not exist') {
-                toast.error('Email is not Registered!')
-            }
-            else if (error.response.data.message === 'Server Crashed!') {
-                toast.error('Servers are Down')
-            }
-            console.log(error)
-        }
-        setLoading(false)
-        setButtonDisabled(true)
+        } catch (error: unknown) {
+            if (isAxiosError(error)) {
 
-        console.log(inputData);
+                if (error.response?.data.message === 'User does not exist') {
+                    toast.error('Email is not Registered!')
+                }
+                else if (error.response?.data.message === 'Server Crashed!') {
+                    toast.error('Servers are Down')
+                }
+                console.log(error)
+
+                console.log(inputData);
+            } else if (error instanceof Error) {
+                console.error("Something went wrong:", error.message);
+            } else {
+                // totally unexpected
+                console.error("Unknown error", error);
+            }
+        } finally {
+            setLoading(false)
+            setButtonDisabled(true)
+        }
     };
 
 
@@ -177,7 +186,7 @@ const ForgotPass = () => {
 
                             ) : (
                                 <>
-                                    {sendDisabled ? `Resend in ${formatTime(counter)}` :  "Send Email" }
+                                    {sendDisabled ? `Resend in ${formatTime(counter)}` : "Send Email"}
                                 </>
                             )}
                         </button>

@@ -1,10 +1,10 @@
 'use client'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAppDispatch } from '@/lib/redux/hooks'
 import { setStreak, streakIsActive, setUserTheme } from '@/lib/redux/slices/userSlice'
 
 
-const ClientSync = ( ) => {
+const ClientSync = () => {
 
     const dispatch = useAppDispatch();
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import HeaderII from '@/components/HeaderII'
 import { ReduxProvider } from '@/lib/redux/provider'
 import ClientSync from '../../components/ClientSync'
 import Header from '@/components/HeaderII'

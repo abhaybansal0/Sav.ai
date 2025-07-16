@@ -1,6 +1,6 @@
 
 
-const Pulsar = ({ intensity = 1, speed = 2 }) => {
+const Pulsar = ({ speed = 2 }) => {
 
     return (
         <div className="relative mx-auto w-24 h-24 flex items-center justify-center">

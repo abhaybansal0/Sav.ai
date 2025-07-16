@@ -1,4 +1,3 @@
-import { UnitsType } from '@/lib/types'
 import '../../[courseId]/galaxyClasses.css'
 import React from 'react'
 

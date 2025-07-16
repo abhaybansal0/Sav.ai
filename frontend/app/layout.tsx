@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { MathJaxContext } from "better-react-mathjax";
 import { Toaster } from 'react-hot-toast';
-import { Inter } from 'next/font/google'
 
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: "Sav AI",

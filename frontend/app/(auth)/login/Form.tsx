@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useRouter } from "next/navigation";
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 const Form = () => {
     const Router = useRouter();
@@ -41,12 +41,20 @@ const Form = () => {
             Router.push('/dashboard')
             toast.success('Signed In Successfully!');
 
-        } catch (error: any) {
-            if (error.response.data.message === 'Invalid credentials!') {
-                toast.error('Please check your credentials!')
+        } catch (error: unknown) {
+            if (isAxiosError(error)) {
+                if (error.response?.data.message === 'Invalid credentials!') {
+                    toast.error('Please check your credentials!')
+                }
+                else {
+                    toast.error('Empty Fields!')
+                }
+            } else if (error instanceof Error) {
+                console.error("Something went wrong:", error.message);
             }
             else {
-                toast.error('Empty Fields!')
+                // totally unexpected
+                console.error("Unknown error", error);
             }
         } finally {
             setLoading(false);

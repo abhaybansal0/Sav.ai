@@ -1,5 +1,5 @@
 import React from 'react'
-import { BookOpen, Flame, Target, Zap } from 'lucide-react'
+import { BookOpen, Flame, Zap } from 'lucide-react'
 import PercentageCircle from '@/components/PercentageCircle'
 import StatRoller from '@/components/StatRoller'
 

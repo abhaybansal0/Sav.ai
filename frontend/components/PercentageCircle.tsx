@@ -20,7 +20,7 @@ export default function PercentageCircle({ percentage, size = 50, stroke = 7 }: 
             strokeDashoffset: circumference - (percentage / 100) * circumference,
             transition: { duration: 1.2, ease: 'easeInOut' },
         });
-    }, [percentage]);
+    }, [controls, circumference, percentage]);
 
     return (
         <div className="relative w-fit">

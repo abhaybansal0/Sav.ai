@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import CourseCard from './CourseCards';
 import { ChevronRight } from 'lucide-react';
-import { getDashboardCourses } from '@/lib/content';
 import { CoursesType } from '@/lib/types';
 
 type PropsType = {
@@ -10,9 +9,6 @@ type PropsType = {
 } 
 
 const Courses = async ({ courses }: PropsType) => {
-
-  // Get Dashbaord Courses
-
 
 
   return (
@@ -35,9 +31,9 @@ const Courses = async ({ courses }: PropsType) => {
 
       <div className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-6">
 
-        {courses.map((sub: any, i: number) => {
+        {courses.map((sub: CoursesType, i: number) => {
           const title = sub.name.toString();
-          const { NoOfUnitsDone, unitCount, icon, difficulty } = sub;
+          const { NoOfUnitsDone, unitCount, difficulty } = sub;
           const subId = sub._id;
           const progress = (NoOfUnitsDone / unitCount) * 100 || 0;
           const isStarted = progress !== 0;

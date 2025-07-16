@@ -37,11 +37,7 @@ const UserPreferencesPage = () => {
     standard: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [subIds, setSubIds] = useState({
-    physics: '',
-    chemistry: '',
-    maths: ''
-  })
+
 
   const currentQuestion = questions[currentQuestionNo];
   const isLastQuestion = currentQuestionNo === questions.length - 1;
@@ -166,7 +162,7 @@ const UserPreferencesPage = () => {
                 </div>
 
                 <div className="text-gray-800 font-medium leading-relaxed">
-                  Before we start our journey, let's set some goals!
+                  Before we start our journey, let&apos;s set some goals!
                 </div>
               </div>
               {/* Chat bubble tail */}

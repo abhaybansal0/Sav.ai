@@ -1,8 +1,7 @@
 'use client'
-import { current } from '@reduxjs/toolkit'
-import { CheckCircle, Trophy, XCircle, Zap, Flame, Clock, Rocket, Star, Orbit } from 'lucide-react'
+import { CheckCircle, Trophy, XCircle, Zap, Flame, Clock, Rocket, Star } from 'lucide-react'
 import React from 'react'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 
 interface Props {
     questions: {

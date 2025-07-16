@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'next/link';
-import { LessonType } from '@/lib/types';
 import { planetType1, planetType2, planetType3, planetType4, planetType5  } from '@/app/courses/unit/[unitId]/PlanetTypes';
 import '@/app/courses/unit/[unitId]/Planets.css'
 
