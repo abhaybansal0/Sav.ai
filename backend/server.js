@@ -62,6 +62,6 @@ app.get('/api', (req, res) => {
   res.send('Hello from Express!')
 })
 
-app.listen(process.env.PORT, () => {
-  console.log(`Sav.AI Backend has Started on port ${process.env.PORT}`)
+app.listen(process.env.PORT, '0.0.0.0', () => {
+  console.log(`sav-ai Backend Listening on port ${process.env.PORT}`)
 })
