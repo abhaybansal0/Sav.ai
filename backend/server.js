@@ -38,17 +38,23 @@ app.use(cors({
 //   next();
 // });
 
+app.set('trust proxy', 1);
 
 const globalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100, // 100 requests per 15 minutes per IP
-    message: {
-        success: false,
-        message: 'Too many requests. Please try again later.'
-    }
+  windowMs: 15 * 60 * 1000,
+  max: 100, // 100 requests per 15 minutes per IP
+  message: {
+    success: false,
+    message: 'Too many requests. Please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  // Optional: if you still get errors, disable validations
+  validate: {
+    trustProxy: false,
+  }
 });
 
-app.set('trust proxy', true);
 app.use(globalLimiter);
 
 app.use('/api/auth', userRouter);
