@@ -48,6 +48,7 @@ const globalLimiter = rateLimit({
     }
 });
 
+app.set('trust proxy', true);
 app.use(globalLimiter);
 
 app.use('/api/auth', userRouter);
