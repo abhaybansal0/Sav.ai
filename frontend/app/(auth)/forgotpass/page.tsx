@@ -127,7 +127,7 @@ const ForgotPass = () => {
                             Reset Password
                         </span>
                     </h2>
-                    <p className="text-gray-600 text-lg">We'll send you a reset link</p>
+                    <p className="text-gray-600 text-lg">We&apos;ll send you a reset link</p>
                 </div>
 
                 {/* Form */}
@@ -161,7 +161,7 @@ const ForgotPass = () => {
                             <div className="flex-1">
                                 <p className="text-sm text-blue-900 font-medium">Check your email!</p>
                                 <p className="text-xs text-blue-700 mt-1">
-                                    We've sent a password reset link to your email address. 
+                                    We&apos;ve sent a password reset link to your email address. 
                                     You can request a new link in {formatTime(counter)}.
                                 </p>
                             </div>
@@ -214,7 +214,7 @@ const ForgotPass = () => {
                         </Link>
                     </p>
                     <p className="text-center text-gray-600">
-                        Don't have an account?{' '}
+                        Don&apos;t have an account?{' '}
                         <Link href="/signup" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-200">
                             Sign up
                         </Link>
