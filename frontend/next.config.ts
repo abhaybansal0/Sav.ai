@@ -5,11 +5,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/:path*`,
+        destination: `${process.env.BACKEND_DOMAIN}/api/:path*`,
       },
       {
         source: '/socket.io/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/socket.io/:path*`,
+        destination: `${process.env.BACKEND_DOMAIN}/socket.io/:path*`,
       },
     ];
   },

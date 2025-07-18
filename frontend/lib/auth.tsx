@@ -5,7 +5,7 @@ import axios, { isAxiosError } from "axios";
 axios.defaults.withCredentials = true;
 
 
-const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN
+const BASE_BACKEND_URL = process.env.BACKEND_DOMAIN
 
 export async function getUser() {
     const cookieStore = await cookies();
@@ -28,6 +28,7 @@ export async function getUser() {
                 // cookie: cookieHeader,
             },
         })
+
 
         if (!res) return null;
 

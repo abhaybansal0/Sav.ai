@@ -323,6 +323,7 @@ const forgotPassword = async (req, res) => {
             });
         }
 
+        console.log(username_email)
 
         const user = await User.findOne({
             $or: [
@@ -341,15 +342,43 @@ const forgotPassword = async (req, res) => {
         }
 
         if (!user.isVerified) {
-            // You might want to send a verification email instead
+            // verification email sent rathe rthan the forgotpassword email
+            // Fire-and-forget email
+            setImmediate(async () => {
+                try {
+                    await sendMail({
+                        email: user.email,
+                        mailType: 'VERIFY',
+                        userId: user._id
+                    });
+                    console.log(`Verification email sent to ${user.email}`);
+                } catch (mailError) {
+                    console.error('Failed to send verification email:', mailError);
+                    // In production, you might want to add this to a retry queue
+                }
+            });
+
             return res.status(200).json(successResponse);
         }
 
-        const Mail = user.email
-        const mailType = "RESET"
-        const ID = user._id;
 
-        sendMail({ email: Mail, mailType: mailType, userId: ID })
+        // Fire-and-forget email
+        setImmediate(async () => {
+            try {
+                await sendMail({
+                    email: user.email,
+                    mailType: 'RESET',
+                    userId: user._id
+                });
+                console.log(`ForgotPassword email sent to ${user.email}`);
+            } catch (mailError) {
+                console.error('Failed to send forgotPassword email:', mailError);
+                // In production, you might want to add this to a retry queue
+            }
+        });
+
+
+        // sendMail({ email: Mail, mailType: mailType, userId: ID })
 
 
         // Log the attempt (for monitoring)
@@ -421,7 +450,7 @@ const changePassword = async (req, res) => {
             { expiresIn: '10d' }
         )
 
-        user.tokens.push(token);
+        user.tokens.push(loginToken);
         await user.save();
 
 
@@ -438,7 +467,7 @@ const changePassword = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error in resetPassword:', error);
+        console.error('Error in ChangePassword:', error);
         res.status(500).json({
             message: 'Server error during password reset. Please try again later.',
             success: false

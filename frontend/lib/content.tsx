@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 axios.defaults.withCredentials = true;
 
-const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN
+const BASE_BACKEND_URL = process.env.BACKEND_DOMAIN
 
 const getTokens = async () => {
     const cookieStore = await cookies();

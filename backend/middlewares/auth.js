@@ -9,12 +9,12 @@ const auth = async (req, res, next) => {
     try {
         const token = req.header("Authorization")?.replace("Bearer ", "") || req.cookies.Authorization;
 
-
+        
         if (!token) {
             console.log('No Token Provided');
             return res.status(401).send({ error: "No Token Provided" })
         }
-
+        
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 
         const user = await User.findOne({
