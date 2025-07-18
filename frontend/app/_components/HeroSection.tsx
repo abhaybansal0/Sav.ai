@@ -39,7 +39,7 @@ export default function HeroSection() {
         <div className="container mx-auto px-6 text-center relative z-10 pt-48">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {/* Main headline with physics/learning focus */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-none">
+            <h1 className="text-7xl md:text-6xl lg:text-5xl font-bold mb-6 leading-none">
               <span className="text-gray-900 block mb-2">Master Physics</span>
               <span className="bg-gradient-to-r p-2 from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent block">
                 The Fun Way
@@ -47,7 +47,7 @@ export default function HeroSection() {
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-2xl md:text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
               Interactive lessons, visual formulas, and playful experiments to make learning physics enjoyable and effective.
             </p>
 

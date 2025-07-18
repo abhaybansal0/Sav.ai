@@ -9,7 +9,7 @@ const CourseCard = ({
 }: CoursesType) => {
 
 
-    const ProgressPer = progress / unitCount * 100;
+const ProgressPer = Math.floor((progress / unitCount) * 100);
 
     const getLevelColor = (level: string) => {
         switch (level) {

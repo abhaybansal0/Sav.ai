@@ -18,14 +18,14 @@ const CoursesSection = ({ courses }: CourseProps) => {
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input type="text"
                         placeholder='Search courses...'
-                        className='w-2/5 border dark:border-gray-900 p-4 py-5 h-4 bg-white dark:bg-gray-800 rounded-md text-black dark:text-white text-sm pl-10' />
+                        className='w-2/5 md:w-full border dark:border-gray-900 p-4 py-5 h-4 bg-white dark:bg-gray-800 rounded-md text-black dark:text-white text-sm pl-10' />
 
                 </div>
 
             </div>
 
 
-            <div className="grid grid-cols-3 gap-6 lg:grid-cols-2 md:grid-cols-1 ">
+            <div className="grid grid-cols-3 gap-6  md:grid-cols-1 ">
                 {courses.map((course, index) => (
                     <CourseCard key={index} {...course} />
                 ))}

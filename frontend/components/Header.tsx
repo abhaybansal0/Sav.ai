@@ -103,6 +103,7 @@ export default function Header() {
             px-6 py-2 rounded-full text-lg font-medium
             hover:bg-blue-700 shadow-lg hover:shadow-xl
             transition-all duration-300
+            md:text-sm md:py-1 md:px-2.5 md:font-semibold 
             ${isScrolled ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 pointer-events-none'}
           `}
         >

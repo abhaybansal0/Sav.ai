@@ -12,7 +12,7 @@ interface Props {
 
 const BreadCrumbs = ({ breadDetails }: Props) => {
     return (
-        <div className='flex gap-2 items-center justify-start text-sm font-semibold'>
+        <div className='flex gap-2 items-center justify-start text-sm font-semibold mt-4'>
             <Link href={'/dashboard'}>
                 <span className='text-gray-500 dark:text-gray-400 dark:hover:text-gray-200'>
                     Dashbord

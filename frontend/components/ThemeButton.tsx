@@ -2,7 +2,8 @@
 
 import React, { useState, useCallback, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react';
-import { useAppSelector } from '@/lib/redux/hooks';
+import { useAppSelector, useAppDispatch } from '@/lib/redux/hooks';
+import { setUserTheme } from '@/lib/redux/slices/userSlice'
 import axios, { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
@@ -15,7 +16,7 @@ const ThemeButton = () => {
     );
 
     const { userTheme } = useAppSelector((state) => state.user)
-
+    const dispatch = useAppDispatch();
 
     const toggleTheme = useCallback(
         async () => {
@@ -34,6 +35,7 @@ const ThemeButton = () => {
                 if (res.data.success) {
                     document.documentElement.classList.toggle("dark", nextIsDark);
                     setIsDark(nextIsDark);
+                    dispatch(setUserTheme(nextIsDark ? 'dark' : 'light'));
                 }
             } catch (error: unknown) {
                 if (isAxiosError(error)) {
@@ -56,6 +58,8 @@ const ThemeButton = () => {
                     // totally unexpected
                     console.error("Unknown error", error);
                 }
+            } finally {
+                setIsDark(nextIsDark);
             }
         },
         [isDark],

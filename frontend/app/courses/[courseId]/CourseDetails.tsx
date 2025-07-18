@@ -17,7 +17,7 @@ const CourseDetails = ({ courseDetails }: Props) => {
     const totalXp = courseDetails.totalLessons * 75;
     const userXp = courseDetails.totalCompletedLessons * 75;
 
-    const progressPer = (courseDetails.totalCompletedLessons / courseDetails.totalLessons) * 100 || 0;
+    const progressPer = Math.floor((courseDetails.totalCompletedLessons / courseDetails.totalLessons) * 100) || 0;
 
     return (
         <div className='w-full  pt-24 tracking-normal px-12 md:px-4 pb-4 '>
